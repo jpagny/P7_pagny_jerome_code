@@ -1,4 +1,4 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.CurvePoint;
 import org.springframework.stereotype.Controller;

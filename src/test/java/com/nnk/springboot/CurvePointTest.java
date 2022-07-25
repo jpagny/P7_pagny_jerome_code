@@ -1,56 +1,79 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.repositories.CurvePointRepository;
-import org.junit.Assert;
+import com.nnk.springboot.repository.CurvePointRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CurvePointTest {
-
     @Mock
     private CurvePointRepository curvePointRepository;
 
     @Test
     public void should_beReturnedCurvePoint_when_aNewCurvePointIsSaved() {
-        CurvePoint curvePoint = new CurvePoint(10,10d,30d);
+        CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
 
         when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
 
         curvePoint = curvePointRepository.save(curvePoint);
 
         assertNotNull(curvePoint.getId());
-        assertTrue(curvePoint.getCurveId() == 10);
+        assertEquals(10, (int) curvePoint.getCurveId());
         assertNotNull(curvePoint.getCreationDate());
     }
 
-	/*
+    @Test
+    public void should_beReturnedCurvePoint_when_aCurvePointIsUpdated() {
+        CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+        curvePoint.setCurveId(20);
+        when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
 
-		// Update
-		curvePoint.setCurveId(20);
-		curvePoint = curvePointRepository.save(curvePoint);
-		Assert.assertTrue(curvePoint.getCurveId() == 20);
+        curvePoint = curvePointRepository.save(curvePoint);
 
-		// Find
-		List<CurvePoint> listResult = curvePointRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+        assertNotNull(curvePoint.getId());
+        assertEquals(20, (int) curvePoint.getCurveId());
+        assertNotNull(curvePoint.getCreationDate());
+    }
 
-		// Delete
-		Integer id = curvePoint.getId();
-		curvePointRepository.delete(curvePoint);
-		Optional<CurvePoint> curvePointList = curvePointRepository.findById(id);
-		Assert.assertFalse(curvePointList.isPresent());
-	 */
+    @Test
+    public void should_beReturnedAllCurvePoint_when_findAllIsCalled() {
+        CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+        List<CurvePoint> listCurvePoint = new ArrayList<>();
+        listCurvePoint.add(curvePoint);
+        when(curvePointRepository.findAll()).thenReturn(listCurvePoint);
+
+        List<CurvePoint> listResult = curvePointRepository.findAll();
+
+        assertTrue(listResult.size() > 0);
+    }
+
+    @Test
+    public void should_beCurvePointNotPresent_when_curvePointIsDeleted() {
+        CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+        Integer id = curvePoint.getId();
+        doNothing().when(curvePointRepository).delete(curvePoint);
+        when(curvePointRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+
+        curvePointRepository.delete(curvePoint);
+
+        Optional<CurvePoint> curvePointList = curvePointRepository.findById(id);
+
+        assertFalse(curvePointList.isPresent());
+    }
 
 
 }
