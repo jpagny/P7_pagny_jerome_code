@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 
 @Entity
@@ -26,7 +27,6 @@ public class CurvePoint {
     @Length(min = 3, max = 20)
     private Integer curveId;
 
-    @NotNull
     private Timestamp asOfDate;
 
     @NotNull
@@ -43,5 +43,16 @@ public class CurvePoint {
     public CurvePoint() {
 
     }
+    public CurvePoint(int theCurveId, Double theTerm, Double theValue) {
+
+        id = theCurveId;
+
+        curveId = theCurveId;
+        term = theTerm;
+        value = theValue;
+
+        creationDate = Timestamp.from(Instant.now());
+    }
+
 
 }
