@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller;
+package com.nnk.springboot.controller.web;
 
 /*
 @Controller
