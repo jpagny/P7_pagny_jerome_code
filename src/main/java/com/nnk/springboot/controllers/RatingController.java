@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/*
 @Controller
 public class RatingController {
     // TODO: Inject Rating service
@@ -52,3 +53,5 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 }
+
+ */

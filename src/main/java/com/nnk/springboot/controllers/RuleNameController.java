@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/*
 @Controller
 public class RuleNameController {
     // TODO: Inject RuleName service
@@ -52,3 +53,5 @@ public class RuleNameController {
         return "redirect:/ruleName/list";
     }
 }
+
+ */

@@ -1,7 +1,6 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.TradeRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +10,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Optional;
-
+	/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TradeTests {
+
 
 	@Autowired
 	private TradeRepository tradeRepository;
@@ -43,4 +43,7 @@ public class TradeTests {
 		Optional<Trade> tradeList = tradeRepository.findById(id);
 		Assert.assertFalse(tradeList.isPresent());
 	}
+
+
 }
+	*/

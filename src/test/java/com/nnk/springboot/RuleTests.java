@@ -1,7 +1,6 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RuleNameRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +10,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Optional;
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RuleTests {
+
 
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
@@ -43,4 +43,8 @@ public class RuleTests {
 		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
 		Assert.assertFalse(ruleList.isPresent());
 	}
+
+
 }
+ */
+

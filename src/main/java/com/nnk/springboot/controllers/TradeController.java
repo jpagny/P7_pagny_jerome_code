@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/*
 @Controller
 public class TradeController {
     // TODO: Inject Trade service
@@ -52,3 +53,5 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 }
+
+ */
