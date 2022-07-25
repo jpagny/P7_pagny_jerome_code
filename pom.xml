@@ -55,10 +55,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<version>8.0.29</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
