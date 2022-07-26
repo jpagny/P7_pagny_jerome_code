@@ -1,6 +1,6 @@
 package com.nnk.springboot.service.implement;
 
-import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.repository.CurvePointRepository;
 import com.nnk.springboot.service.ICurvePointService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class CurvePointService implements ICurvePointService {
     private final CurvePointRepository curvePointRepository;
 
     @Override
-    public List<CurvePoint> findAll() {
+    public List<CurvePointEntity> findAll() {
         return curvePointRepository.findAll();
     }
 }

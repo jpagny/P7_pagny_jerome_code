@@ -1,6 +1,6 @@
 package com.nnk.springboot.service;
 
-import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.repository.CurvePointRepository;
 import com.nnk.springboot.service.implement.CurvePointService;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CurvePointServiceTest {
+public class CurvePointEntityServiceTest {
 
     private CurvePointService curvePointService;
 
@@ -32,14 +32,14 @@ public class CurvePointServiceTest {
 
     @Test
     public void should_beReturnedListCurvePoint_when_findAllIsCalled() {
-        CurvePoint curvePoint1 = new CurvePoint(1, 10d, 30d);
-        CurvePoint curvePoint2 = new CurvePoint(2, 10d, 30d);
-        List<CurvePoint> listCurvePoint = new ArrayList<>();
-        listCurvePoint.add(curvePoint1);
-        listCurvePoint.add(curvePoint2);
-        when(curvePointRepository.findAll()).thenReturn(listCurvePoint);
+        CurvePointEntity curvePointEntity1 = new CurvePointEntity(1, 10d, 30d);
+        CurvePointEntity curvePointEntity2 = new CurvePointEntity(2, 10d, 30d);
+        List<CurvePointEntity> listCurvePointEntity = new ArrayList<>();
+        listCurvePointEntity.add(curvePointEntity1);
+        listCurvePointEntity.add(curvePointEntity2);
+        when(curvePointRepository.findAll()).thenReturn(listCurvePointEntity);
 
-        List<CurvePoint> list = curvePointService.findAll();
+        List<CurvePointEntity> list = curvePointService.findAll();
 
         assertEquals(list.size(), 2);
     }

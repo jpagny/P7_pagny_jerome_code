@@ -1,11 +1,11 @@
-package com.nnk.springboot.domain;
+package com.nnk.springboot.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

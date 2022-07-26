@@ -1,6 +1,6 @@
 package com.nnk.springboot.controller.web;
 
-import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.service.implement.CurvePointService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,18 +24,18 @@ public class CurveController {
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model) {
-        List<CurvePoint> listCurvePoint = curvePointService.findAll();
-        model.addAttribute("listCurvePoint", listCurvePoint);
+        List<CurvePointEntity> listCurvePointEntity = curvePointService.findAll();
+        model.addAttribute("listCurvePoint", listCurvePointEntity);
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addBidForm(CurvePointEntity bid) {
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+    public String validate(@Valid CurvePointEntity curvePointEntity, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Curve list
         return "curvePoint/add";
     }
@@ -47,7 +47,7 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePointEntity curvePointEntity,
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         return "redirect:/curvePoint/list";

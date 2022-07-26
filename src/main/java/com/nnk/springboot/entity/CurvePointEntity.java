@@ -1,4 +1,4 @@
-package com.nnk.springboot.domain;
+package com.nnk.springboot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CurvePoint {
+public class CurvePointEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,10 +40,10 @@ public class CurvePoint {
     @NotNull
     private Timestamp creationDate;
 
-    public CurvePoint() {
+    public CurvePointEntity() {
 
     }
-    public CurvePoint(int theCurveId, Double theTerm, Double theValue) {
+    public CurvePointEntity(int theCurveId, Double theTerm, Double theValue) {
 
         id = theCurveId;
 
