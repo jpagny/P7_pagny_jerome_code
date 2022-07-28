@@ -3,20 +3,17 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.repository.CurvePointRepository;
 import com.nnk.springboot.service.implement.CurvePointService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class CurvePointEntityServiceTest {
 
@@ -25,7 +22,7 @@ public class CurvePointEntityServiceTest {
     @Mock
     private CurvePointRepository curvePointRepository;
 
-    @Before
+    @BeforeAll
     public void initCurvePointService() {
         curvePointService = new CurvePointService(curvePointRepository);
     }
