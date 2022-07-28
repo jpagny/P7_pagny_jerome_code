@@ -1,47 +1,50 @@
 package com.nnk.springboot.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.time.Instant;
-
 
 @Entity
-@Table(name = "curvepoint")
-@Getter
-@Setter
+@Table(name = "curvePoint")
+@Data
 @AllArgsConstructor
 public class CurvePointEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Min(0)
     private Integer curveId;
 
+    @CreationTimestamp
     private Timestamp asOfDate;
 
+    @NotNull
+    @Min(value = 0, message = "Term must be positive")
     private Double term;
 
+    @NotNull
+    @Min(value = 0, message = "Value must be positive")
     private Double value;
 
+    @CreationTimestamp
     private Timestamp creationDate;
 
     public CurvePointEntity() {
 
     }
+
     public CurvePointEntity(int theCurveId, Double theTerm, Double theValue) {
-
-        id = theCurveId;
-
         curveId = theCurveId;
         term = theTerm;
         value = theValue;
-
-        creationDate = Timestamp.from(Instant.now());
     }
 
 

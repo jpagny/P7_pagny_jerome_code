@@ -34,9 +34,10 @@ public class CurvePointService implements ICurvePointService {
         CurvePointEntity curvePointFound = curvePointRepository.findById(curvePointToUpdate.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist : " + curvePointToUpdate.getId()));
 
+        /*
         Timestamp date = curvePointToUpdate.getAsOfDate() != null
                 ? curvePointToUpdate.getAsOfDate()
-                : curvePointFound.getAsOfDate();
+                : curvePointFound.getAsOfDate();*/
 
         Double term = curvePointToUpdate.getTerm() != null
                 ? curvePointToUpdate.getTerm()
@@ -46,7 +47,7 @@ public class CurvePointService implements ICurvePointService {
                 ? curvePointToUpdate.getValue()
                 : curvePointFound.getValue();
 
-        curvePointFound.setAsOfDate(date);
+        //curvePointFound.setAsOfDate(date);
         curvePointFound.setTerm(term);
         curvePointFound.setValue(value);
 
