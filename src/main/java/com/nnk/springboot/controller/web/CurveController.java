@@ -24,9 +24,10 @@ public class CurveController {
         this.curvePointService = theCurvePointService;
     }
 
-    @RequestMapping("/curvePoint/list")
+    @GetMapping("/curvePoint/list")
     public String home(Model model) {
         List<CurvePointEntity> listCurvePointEntity = curvePointService.findAll();
+        model.addAttribute("pageTitle", "CurvePoint - add");
         model.addAttribute("listCurvePoint", listCurvePointEntity);
         return "curvePoint/list";
     }
