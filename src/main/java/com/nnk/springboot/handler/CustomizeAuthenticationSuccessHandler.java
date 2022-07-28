@@ -1,5 +1,6 @@
 package com.nnk.springboot.handler;
 
+import com.nnk.springboot.constant.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -16,29 +17,26 @@ public class CustomizeAuthenticationSuccessHandler extends SavedRequestAwareAuth
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
-        //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
 
         boolean admin = false;
 
-        LOG.debug("AT onAuthenticationSuccess(...) function!");
-
         for (GrantedAuthority auth : authentication.getAuthorities()) {
 
-            LOG.debug("ICI : " + auth.getAuthority());
-            if ("ROLE_ADMIN".equals(auth.getAuthority())) {
+            if ((Role.ADMIN.getAuthority()).equals(auth.getAuthority())) {
                 admin = true;
             }
         }
 
         if (admin) {
             response.sendRedirect("/app/admin");
+
         } else {
             response.sendRedirect("/app/user");
+
         }
     }
 }

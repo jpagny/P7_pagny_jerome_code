@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MyErrorController implements ErrorController {
-    @RequestMapping()
+    @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
+        
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
 
             switch (statusCode) {
-                case 404:
-                    return "error/404";
 
-                case 500:
-                    return "error/500";
+                case 403:
+                case 404:
+                    return "error/" + status;
 
                 default:
                     return "error/unknown";
@@ -29,7 +29,7 @@ public class MyErrorController implements ErrorController {
 
         }
 
-        return "error/unknown.html";
+        return "error/unknown";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.entity.CurvePointEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.CurvePointService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+
+@RequestMapping("/admin")
 @Controller
 public class CurveController {
 
@@ -28,13 +31,14 @@ public class CurveController {
         return "curvePoint/list";
     }
 
+
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePointEntity bid) {
+    public String addBidForm(CurvePointEntity bid) throws ResourceNotFoundException {
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate( CurvePointEntity curvePointEntity, BindingResult result, Model model) {
+    public String validate(CurvePointEntity curvePointEntity, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Curve list
         return "curvePoint/add";
     }
