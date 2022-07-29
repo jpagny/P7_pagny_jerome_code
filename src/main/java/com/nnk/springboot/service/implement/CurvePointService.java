@@ -4,7 +4,7 @@ import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.CurvePointRepository;
 import com.nnk.springboot.service.ICurvePointService;
-import dto.CurvePointDTO;
+import com.nnk.springboot.dto.CurvePointDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

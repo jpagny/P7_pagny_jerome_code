@@ -2,7 +2,7 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.service.implement.CurvePointService;
-import dto.CurvePointDTO;
+import com.nnk.springboot.dto.CurvePointDTO;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

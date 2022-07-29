@@ -1,4 +1,4 @@
-package dto;
+package com.nnk.springboot.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
