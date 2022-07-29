@@ -6,3 +6,6 @@ INSERT INTO `curve_point` ( `as_of_date`, `creation_date`, `curve_id`, `term`, `
 
 INSERT INTO `rating` (`fitch_rating`, `moodys_rating`, `order_number`, `sandprating`) VALUES ('aaa', 'bbb', '1', 'ccc');
 INSERT INTO `rating` (`fitch_rating`, `moodys_rating`, `order_number`, `sandprating`) VALUES ('dd', 'eee', '2', 'fff');
+
+INSERT INTO `rule_name` (`description`, `json`, `name`, `sql_part`, `sql_str`, `template`) VALUES ('Test', 'json.txt', 'Test', 'sql_part.txt', 'sql.txt', 'Test');
+INSERT INTO `rule_name` (`description`, `json`, `name`, `sql_part`, `sql_str`, `template`) VALUES ('Test2', 'json2.txt', 'Test2', 'sql_part2.txt', 'sql2.txt', 'Test2');

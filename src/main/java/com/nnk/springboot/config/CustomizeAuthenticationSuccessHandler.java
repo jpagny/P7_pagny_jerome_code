@@ -1,4 +1,4 @@
-package com.nnk.springboot.handler;
+package com.nnk.springboot.config;
 
 import com.nnk.springboot.constant.Role;
 import org.slf4j.Logger;

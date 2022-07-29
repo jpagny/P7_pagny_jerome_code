@@ -1,7 +1,6 @@
 package com.nnk.springboot.config;
 
 import com.nnk.springboot.constant.Role;
-import com.nnk.springboot.handler.CustomizeAuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

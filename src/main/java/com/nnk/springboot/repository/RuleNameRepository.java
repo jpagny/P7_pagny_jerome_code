@@ -1,8 +1,9 @@
 package com.nnk.springboot.repository;
 
 
-/*
-public interface RuleNameRepository extends JpaRepository<RuleName, Integer> {
+import com.nnk.springboot.entity.RuleNameEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RuleNameRepository extends JpaRepository<RuleNameEntity, Integer> {
 }
 
- */
