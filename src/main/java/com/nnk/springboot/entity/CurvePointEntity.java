@@ -5,8 +5,6 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -17,24 +15,23 @@ public class CurvePointEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @NotNull
-    @Min(0)
+    @Column(name = "curveId")
     private Integer curveId;
 
-    @CreationTimestamp
+    @Column(name = "asOfDate")
     private Timestamp asOfDate;
 
-    @NotNull
-    @Min(value = 0, message = "Term must be positive")
+    @Column(name = "term")
     private Double term;
 
-    @NotNull
-    @Min(value = 0, message = "Value must be positive")
+    @Column(name = "value")
     private Double value;
 
     @CreationTimestamp
+    @Column(name = "creationDate")
     private Timestamp creationDate;
 
     public CurvePointEntity() {

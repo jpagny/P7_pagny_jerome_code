@@ -12,7 +12,7 @@ public interface ICurvePointService {
 
     List<CurvePointEntity> findAll();
 
-    CurvePointEntity create(CurvePointEntity curvePointEntity);
+    CurvePointDTO create(CurvePointDTO curvePointDTO);
 
     CurvePointDTO update(Integer id, CurvePointDTO curvePointDTO) throws ResourceNotFoundException;
 

@@ -40,8 +40,12 @@ public class CurvePointService implements ICurvePointService {
     }
 
     @Override
-    public CurvePointEntity create(CurvePointEntity curvePointEntity) {
-        return curvePointRepository.save(curvePointEntity);
+    public CurvePointDTO create(CurvePointDTO curvePointDTO) {
+
+        CurvePointEntity curvePointEntity = modelMapper.map(curvePointDTO, CurvePointEntity.class);
+        CurvePointEntity curvePointEntitySaved = curvePointRepository.save(curvePointEntity);
+
+        return modelMapper.map(curvePointEntitySaved,CurvePointDTO.class);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class CurvePointService implements ICurvePointService {
         curvePointFound.setTerm(term);
         curvePointFound.setValue(value);
 
-        curvePointFound.setCreationDate(Timestamp.from(Instant.now()));
+        curvePointFound.setAsOfDate(Timestamp.from(Instant.now()));
 
         curvePointRepository.save(curvePointFound);
 

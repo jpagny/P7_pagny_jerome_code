@@ -19,7 +19,6 @@ public class CurvePointDTO {
     @NotNull
     @Min(0)
     private Integer curveId;
-
     private Timestamp asOfDate;
 
     @NotNull
@@ -31,6 +30,5 @@ public class CurvePointDTO {
     private Double value;
 
     private Timestamp creationDate;
-
 
 }

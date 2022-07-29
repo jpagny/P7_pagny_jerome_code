@@ -6,7 +6,6 @@ import dto.CurvePointDTO;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +26,6 @@ public class CurveController implements WebMvcConfigurer {
 
     private static final Logger LOG = LogManager.getLogger("CurveController");
     private final CurvePointService curvePointService;
-    private final ModelMapper modelMapper;
 
     @GetMapping("/curvePoint/list")
     public String home(Model model) {
@@ -50,9 +48,7 @@ public class CurveController implements WebMvcConfigurer {
             return "curvePoint/add";
         }
 
-        CurvePointEntity curvePoint = modelMapper.map(curvePointDTO, CurvePointEntity.class);
-
-        curvePointService.create(curvePoint);
+        curvePointService.create(curvePointDTO);
 
         model.addAttribute("pageTitle", "CurvePoint - list");
         model.addAttribute("listCurvePoints", curvePointService.findAll());
