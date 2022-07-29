@@ -74,8 +74,12 @@ public class CurvePointService implements ICurvePointService {
     }
 
     @Override
-    public void delete(CurvePointEntity curvePointToDelete) {
-        curvePointRepository.delete(curvePointToDelete);
+    public void delete(Integer id) throws ResourceNotFoundException {
+
+        CurvePointEntity curvePointFound = curvePointRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist : " + id));
+
+        curvePointRepository.delete(curvePointFound);
     }
 
 

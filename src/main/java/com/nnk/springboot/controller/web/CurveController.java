@@ -95,9 +95,15 @@ public class CurveController implements WebMvcConfigurer {
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        return "redirect:/curvePoint/list";
+    public String deleteCurvePoint(@PathVariable("id") Integer id) {
+        try {
+            curvePointService.delete(id);
+
+        } catch (Exception ex){
+            LOG.error("Exception :" + ex);
+        }
+
+        return "redirect:/admin/curvePoint/list";
     }
 }
 

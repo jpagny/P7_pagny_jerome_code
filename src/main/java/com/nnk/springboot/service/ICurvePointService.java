@@ -16,5 +16,5 @@ public interface ICurvePointService {
 
     CurvePointDTO update(Integer id, CurvePointDTO curvePointDTO) throws ResourceNotFoundException;
 
-    void delete(CurvePointEntity curvePointEntity);
+    void delete(Integer id) throws ResourceNotFoundException;
 }
