@@ -17,6 +17,7 @@
                 <th>Term</th>
                 <th>Value</th>
                 <th>Action</th>
+                <th>Update / Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +27,19 @@
                 <td th:text="${curvepoint.getTerm()}">Term</td>
                 <td th:text="${curvepoint.getValue()}">Value</td>
                 <td th:text="${curvepoint.getAsOfDate()}">Action</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <form action="#" th:action="@{/admin/curvePoint/update/{id}(id=${curvepoint.getId()})}"
+                              method="get">
+                            <button class="btn alert-secondary btn-sm" type="submit" value="Update"><i class="fa fa-refresh"></i></button>
+                        </form>
+                        <form action="#" th:action="@{/admin/curvePoint/delete/{id}(id=${curvepoint.getId()})}"
+                              method="get">
+                            <button class="btn btn-danger btn-sm" type="submit" value="Delete"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </div>
+
+                </td>
             </tr>
             </tbody>
         </table>
