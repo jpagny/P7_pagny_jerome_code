@@ -38,7 +38,8 @@ public class CurveController implements WebMvcConfigurer {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addCurvePointForm(CurvePointDTO curvePoint) {
+    public String addCurvePointForm(Model model) {
+        model.addAttribute("curvePointDTO", new CurvePointDTO());
         return "curvePoint/add";
     }
 
@@ -99,7 +100,7 @@ public class CurveController implements WebMvcConfigurer {
         try {
             curvePointService.delete(id);
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             LOG.error("Exception :" + ex);
         }
 
