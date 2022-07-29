@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 public class RuleNameController implements WebMvcConfigurer {
 
-    private static final Logger LOG = LogManager.getLogger("CurveController");
+    private static final Logger LOG = LogManager.getLogger("RuleNameController");
     private final RuleNameService ruleNameService;
 
     @RequestMapping("/ruleName/list")
