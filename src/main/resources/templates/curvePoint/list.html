@@ -17,7 +17,6 @@
                 <th>Term</th>
                 <th>Value</th>
                 <th>Action</th>
-                <th>Update / Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -26,7 +25,6 @@
                 <td th:text="${curvepoint.getCurveId()}">CurvePointId</td>
                 <td th:text="${curvepoint.getTerm()}">Term</td>
                 <td th:text="${curvepoint.getValue()}">Value</td>
-                <td th:text="${curvepoint.getAsOfDate()}">Action</td>
                 <td>
                     <div class="btn-group" role="group">
                         <form action="#" th:action="@{/admin/curvePoint/update/{id}(id=${curvepoint.getId()})}"
