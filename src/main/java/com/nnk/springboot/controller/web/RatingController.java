@@ -37,7 +37,7 @@ public class RatingController implements WebMvcConfigurer {
 
     @GetMapping("/rating/add")
     public String addRatingForm(Model model) {
-        model.addAttribute("ratingDTO",new RatingDTO());
+        model.addAttribute("ratingDTO", new RatingDTO());
         return "rating/add";
     }
 

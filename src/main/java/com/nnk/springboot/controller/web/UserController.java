@@ -80,7 +80,7 @@ public class UserController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             userDTO.setPassword(encoder.encode(userDTO.getPassword()));
 
-            userService.create(userDTO);
+            userService.update(id, userDTO);
             model.addAttribute("listUser", userService.findAll());
 
         } catch (Exception ex) {

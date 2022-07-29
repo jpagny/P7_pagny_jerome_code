@@ -1,10 +1,10 @@
 package com.nnk.springboot.service.implement;
 
+import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.CurvePointRepository;
 import com.nnk.springboot.service.ICurvePointService;
-import com.nnk.springboot.dto.CurvePointDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -29,9 +29,7 @@ public class CurvePointService implements ICurvePointService {
         CurvePointEntity curvePointEntity = curvePointRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist with id : " + id));
 
-        CurvePointDTO curvePointDTO = modelMapper.map(curvePointEntity, CurvePointDTO.class);
-
-        return curvePointDTO;
+        return modelMapper.map(curvePointEntity, CurvePointDTO.class);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class CurvePointService implements ICurvePointService {
         CurvePointEntity curvePointEntity = modelMapper.map(curvePointDTO, CurvePointEntity.class);
         CurvePointEntity curvePointEntitySaved = curvePointRepository.save(curvePointEntity);
 
-        return modelMapper.map(curvePointEntitySaved,CurvePointDTO.class);
+        return modelMapper.map(curvePointEntitySaved, CurvePointDTO.class);
     }
 
     @Override
@@ -74,7 +72,7 @@ public class CurvePointService implements ICurvePointService {
 
         curvePointRepository.save(curvePointFound);
 
-        return modelMapper.map(curvePointFound,CurvePointDTO.class);
+        return modelMapper.map(curvePointFound, CurvePointDTO.class);
     }
 
     @Override

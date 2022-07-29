@@ -10,12 +10,12 @@ public class HomeController {
 
     @RequestMapping("/home")
     public String home(Model model) {
-        model.addAttribute("pageTitle",  "Home");
+        model.addAttribute("pageTitle", "Home");
         return "home";
     }
 
     @RequestMapping("/admin/home")
-    public String adminHome(Model model) {
+    public String adminHome() {
         return "redirect:/admin/bidList/list";
     }
 

@@ -1,7 +1,6 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.TradeDTO;
-import com.nnk.springboot.entity.RuleNameEntity;
 import com.nnk.springboot.entity.TradeEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 

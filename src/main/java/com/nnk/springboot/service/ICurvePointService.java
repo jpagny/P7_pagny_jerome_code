@@ -1,8 +1,8 @@
 package com.nnk.springboot.service;
 
+import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.dto.CurvePointDTO;
 
 import java.util.List;
 
