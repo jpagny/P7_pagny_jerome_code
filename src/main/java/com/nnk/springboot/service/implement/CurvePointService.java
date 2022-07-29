@@ -4,11 +4,14 @@ import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.CurvePointRepository;
 import com.nnk.springboot.service.ICurvePointService;
+import dto.CurvePointDTO;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -17,6 +20,19 @@ import java.util.List;
 public class CurvePointService implements ICurvePointService {
 
     private final CurvePointRepository curvePointRepository;
+    private final ModelMapper modelMapper;
+
+
+    @Override
+    public CurvePointDTO findById(Integer id) throws ResourceNotFoundException {
+
+        CurvePointEntity curvePointEntity = curvePointRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist with id : " + id));
+
+        CurvePointDTO curvePointDTO = modelMapper.map(curvePointEntity, CurvePointDTO.class);
+
+        return curvePointDTO;
+    }
 
     @Override
     public List<CurvePointEntity> findAll() {
@@ -29,29 +45,32 @@ public class CurvePointService implements ICurvePointService {
     }
 
     @Override
-    public CurvePointEntity update(CurvePointEntity curvePointToUpdate) throws ResourceNotFoundException {
+    public CurvePointDTO update(Integer id, CurvePointDTO curvePointDTO) throws ResourceNotFoundException {
 
-        CurvePointEntity curvePointFound = curvePointRepository.findById(curvePointToUpdate.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist : " + curvePointToUpdate.getId()));
+        CurvePointEntity curvePointFound = curvePointRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist : " + id));
 
-        /*
-        Timestamp date = curvePointToUpdate.getAsOfDate() != null
-                ? curvePointToUpdate.getAsOfDate()
-                : curvePointFound.getAsOfDate();*/
+        Integer curveId = curvePointDTO.getCurveId() != null
+                ? curvePointDTO.getCurveId()
+                : curvePointFound.getCurveId();
 
-        Double term = curvePointToUpdate.getTerm() != null
-                ? curvePointToUpdate.getTerm()
+        Double term = curvePointDTO.getTerm() != null
+                ? curvePointDTO.getTerm()
                 : curvePointFound.getTerm();
 
-        Double value = curvePointToUpdate.getValue() != null
-                ? curvePointToUpdate.getValue()
+        Double value = curvePointDTO.getValue() != null
+                ? curvePointDTO.getValue()
                 : curvePointFound.getValue();
 
-        //curvePointFound.setAsOfDate(date);
+        curvePointFound.setCurveId(curveId);
         curvePointFound.setTerm(term);
         curvePointFound.setValue(value);
 
-        return curvePointFound;
+        curvePointFound.setCreationDate(Timestamp.from(Instant.now()));
+
+        curvePointRepository.save(curvePointFound);
+
+        return modelMapper.map(curvePointFound,CurvePointDTO.class);
     }
 
     @Override

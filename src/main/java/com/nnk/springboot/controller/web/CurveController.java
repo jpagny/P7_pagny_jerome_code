@@ -4,6 +4,8 @@ import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.service.implement.CurvePointService;
 import dto.CurvePointDTO;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ import java.util.List;
 @AllArgsConstructor
 
 public class CurveController implements WebMvcConfigurer {
+
+    private static final Logger LOG = LogManager.getLogger("CurveController");
     private final CurvePointService curvePointService;
     private final ModelMapper modelMapper;
 
@@ -34,7 +38,7 @@ public class CurveController implements WebMvcConfigurer {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePointDTO curvePoint) {
+    public String addCurvePointForm(CurvePointDTO curvePoint) {
         return "curvePoint/add";
     }
 
@@ -52,20 +56,42 @@ public class CurveController implements WebMvcConfigurer {
         model.addAttribute("pageTitle", "CurvePoint - list");
         model.addAttribute("listCurvePoints", curvePointService.findAll());
 
-        return "curvePoint/list";
+        return "redirect:/admin/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+
+        try {
+            CurvePointDTO curvePoint = curvePointService.findById(id);
+            model.addAttribute("curvePointDTO", curvePoint);
+        } catch (Exception ex) {
+            LOG.error("Exception :" + ex);
+        }
+
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, CurvePointEntity curvePointEntity,
-                            BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
-        return "redirect:/curvePoint/list";
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePointDTO curvePointDTO,
+                                   BindingResult result, Model model) {
+        try {
+
+            if (result.hasErrors()) {
+                return "curvePoint/update";
+            }
+
+            curvePointService.update(id, curvePointDTO);
+
+            model.addAttribute("curvePoints", curvePointService.findAll());
+
+            return "redirect:/admin/curvePoint/list";
+
+        } catch (Exception ex) {
+            LOG.error("Exception :" + ex);
+        }
+
+        return "redirect:/admin/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
