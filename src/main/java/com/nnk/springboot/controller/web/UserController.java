@@ -2,7 +2,6 @@ package com.nnk.springboot.controller.web;
 
 
 import com.nnk.springboot.dto.UserDTO;
-import com.nnk.springboot.entity.RuleNameEntity;
 import com.nnk.springboot.entity.UserEntity;
 import com.nnk.springboot.service.implement.UserService;
 import lombok.AllArgsConstructor;
@@ -84,7 +83,7 @@ public class UserController {
             userService.create(userDTO);
             model.addAttribute("listUser", userService.findAll());
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             LOG.error("Exception : " + ex);
         }
 

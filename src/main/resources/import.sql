@@ -12,3 +12,6 @@ INSERT INTO `rule_name` (`description`, `json`, `name`, `sql_part`, `sql_str`, `
 
 INSERT INTO `bidlist` ( `account`,`bid_quantity`, `type`) VALUES ('1',2,'Test');
 INSERT INTO `bidlist` ( `account`,`bid_quantity`, `type`) VALUES ('5',3,'Test2');
+
+INSERT INTO `trade` (`account`, `buy_quantity`, `type`) VALUES ('Test', '100', "Fruit");
+INSERT INTO `trade` (`account`, `buy_quantity`, `type`) VALUES ('Test2', '300', "Légume");
