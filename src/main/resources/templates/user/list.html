@@ -25,18 +25,8 @@
 					<td th:text="${user.username}"></td>
 					<td style="width: 25%" th:text="${user.role}"></td>
 					<td style="width: 15%" class="text-center">
-						<div class="btn-group" role="group">
-							<form action="#" th:action="@{/admin/user/update/{id}(id=${user.getId()})}"
-								  method="get">
-								<button class="btn alert-secondary btn-sm" type="submit" value="Update"><i
-										class="fa fa-refresh"></i></button>
-							</form>
-							<form action="#" th:action="@{/admin/user/delete/{id}(id=${user.getId()})}"
-								  method="get">
-								<button class="btn btn-danger btn-sm" type="submit" value="Delete"><i
-										class="fa fa-trash"></i></button>
-							</form>
-						</div>
+						<a th:href="@{/admin/user/update/{id}(id=${user.getId()})}">Edit</a>&nbsp;|&nbsp;
+						<a th:href="@{/admin/user/delete/{id}(id=${user.getId()})}">Delete</a>
 					</td>
 				</tr>
 			</tbody>

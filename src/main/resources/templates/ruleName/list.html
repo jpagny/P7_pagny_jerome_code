@@ -30,20 +30,9 @@
 				<td th:text="${ruleName.getTemplate()}">Template</td>
 				<td th:text="${ruleName.getSqlStr()}">Sql</td>
 				<td th:text="${ruleName.getSqlPart()}">SqlPart</td>
-				<td>
-					<div class="btn-group" role="group">
-						<form action="#" th:action="@{/admin/ruleName/update/{id}(id=${ruleName.getId()})}"
-							  method="get">
-							<button class="btn alert-secondary btn-sm" type="submit" value="Update"><i
-									class="fa fa-refresh"></i></button>
-						</form>
-						<form action="#" th:action="@{/admin/ruleName/delete/{id}(id=${ruleName.getId()})}"
-							  method="get">
-							<button class="btn btn-danger btn-sm" type="submit" value="Delete"><i
-									class="fa fa-trash"></i></button>
-						</form>
-					</div>
-
+				<td style="width: 15%" class="text-center">
+					<a th:href="@{/admin/ruleName/update/{id}(id=${ruleName.getId()})}">Edit</a>&nbsp;|&nbsp;
+					<a th:href="@{/admin/ruleName/delete/{id}(id=${ruleName.getId()})}">Delete</a>
 				</td>
 			</tr>
 			</tbody>

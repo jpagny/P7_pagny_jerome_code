@@ -32,7 +32,7 @@ public class CustomizeAuthenticationSuccessHandler extends SavedRequestAwareAuth
         }
 
         if (admin) {
-            response.sendRedirect("/app/admin");
+            response.sendRedirect("/app/admin/home");
 
         } else {
             response.sendRedirect("/app/user");

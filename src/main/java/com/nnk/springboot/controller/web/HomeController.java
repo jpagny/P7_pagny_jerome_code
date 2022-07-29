@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
+
     @RequestMapping("/home")
     public String home(Model model) {
         model.addAttribute("pageTitle",  "Home");
@@ -15,7 +16,7 @@ public class HomeController {
 
     @RequestMapping("/admin/home")
     public String adminHome(Model model) {
-        return "redirect:/bidList/list";
+        return "redirect:/admin/bidList/list";
     }
 
 

@@ -9,3 +9,6 @@ INSERT INTO `rating` (`fitch_rating`, `moodys_rating`, `order_number`, `sandprat
 
 INSERT INTO `rule_name` (`description`, `json`, `name`, `sql_part`, `sql_str`, `template`) VALUES ('Test', 'json.txt', 'Test', 'sql_part.txt', 'sql.txt', 'Test');
 INSERT INTO `rule_name` (`description`, `json`, `name`, `sql_part`, `sql_str`, `template`) VALUES ('Test2', 'json2.txt', 'Test2', 'sql_part2.txt', 'sql2.txt', 'Test2');
+
+INSERT INTO `bidlist` ( `account`,`bid_quantity`, `type`) VALUES ('1',2,'Test');
+INSERT INTO `bidlist` ( `account`,`bid_quantity`, `type`) VALUES ('5',3,'Test2');
