@@ -33,6 +33,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
+                .antMatchers("/","/home").permitAll()
                 .antMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
                 .antMatchers("/user/**").hasAuthority(Role.USER.getAuthority())
                 .anyRequest().authenticated()
