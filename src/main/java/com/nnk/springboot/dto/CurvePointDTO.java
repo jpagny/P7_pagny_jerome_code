@@ -31,4 +31,9 @@ public class CurvePointDTO {
 
     private Timestamp creationDate;
 
+    public CurvePointDTO(Double theTerm, Double theValue) {
+        term = theTerm;
+        value = theValue;
+    }
+
 }

@@ -10,8 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -50,7 +48,7 @@ public class CurvePointService implements ICurvePointService {
     public CurvePointDTO update(Integer id, CurvePointDTO curvePointDTO) throws ResourceNotFoundException {
 
         CurvePointEntity curvePointFound = curvePointRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist with id : " + id));
 
         Integer curveId = curvePointDTO.getCurveId() != null
                 ? curvePointDTO.getCurveId()
@@ -68,8 +66,6 @@ public class CurvePointService implements ICurvePointService {
         curvePointFound.setTerm(term);
         curvePointFound.setValue(value);
 
-        curvePointFound.setAsOfDate(Timestamp.from(Instant.now()));
-
         curvePointRepository.save(curvePointFound);
 
         return modelMapper.map(curvePointFound, CurvePointDTO.class);
@@ -79,7 +75,7 @@ public class CurvePointService implements ICurvePointService {
     public void delete(Integer id) throws ResourceNotFoundException {
 
         CurvePointEntity curvePointFound = curvePointRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Curve point doesn't exist with id : " + id));
 
         curvePointRepository.delete(curvePointFound);
     }
