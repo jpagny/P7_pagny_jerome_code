@@ -88,7 +88,7 @@ public class TradeServiceTest {
     }
 
     @Test
-    @DisplayName("should be returned trade updated when a trade is updated")
+    @DisplayName("Should be returned trade updated when a trade is updated")
     public void should_beReturnedTradeUpdated_when_aTradeIsUpdated() throws ResourceNotFoundException {
         TradeDTO tradeToUpdate = new TradeDTO("xxx", "ccc", 15d);
         tradeToUpdate.setType("bbb");
@@ -120,7 +120,7 @@ public class TradeServiceTest {
     }
 
     @Test
-    @DisplayName("should be used tradeRepository.delete method when a trade will be deleted")
+    @DisplayName("Should be used tradeRepository.delete method when a trade will be deleted")
     public void should_beUsedTradeRepositoryDeleteMethod_when_aTradeWillBeDeleted() throws ResourceNotFoundException {
 
         TradeEntity trade = new TradeEntity("xxx", "ccc", 15d);

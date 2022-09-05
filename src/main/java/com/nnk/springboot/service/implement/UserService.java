@@ -45,7 +45,7 @@ public class UserService implements IUserService {
     public UserDTO update(Integer id, UserDTO userDTO) throws ResourceNotFoundException {
 
         UserEntity userFound = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id : " + id));
 
         String username = userDTO.getUsername() != null
                 ? userDTO.getUsername()
@@ -78,7 +78,7 @@ public class UserService implements IUserService {
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
         UserEntity userFound = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id : " + id));
 
         userRepository.delete(userFound);
     }

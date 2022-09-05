@@ -88,7 +88,7 @@ public class CurvePointServiceTest {
     }
 
     @Test
-    @DisplayName("should be returned curvePoint updated when a curvePoint is updated")
+    @DisplayName("Should be returned curvePoint updated when a curvePoint is updated")
     public void should_beReturnedCurvePointUpdated_when_aCurvePointIsUpdated() throws ResourceNotFoundException {
         CurvePointDTO curvePointToUpdate = new CurvePointDTO(10d, 15d);
         curvePointToUpdate.setTerm(105d);
@@ -121,7 +121,7 @@ public class CurvePointServiceTest {
     }
 
     @Test
-    @DisplayName("should be used curvePointRepository.delete method when a curvePoint will be deleted")
+    @DisplayName("Should be used curvePointRepository.delete method when a curvePoint will be deleted")
     public void should_beUsedCurvePointRepositoryDeleteMethod_when_aCurvePointWillBeDeleted() throws ResourceNotFoundException {
 
         CurvePointEntity curvePoint = new CurvePointEntity(10d, 15d);

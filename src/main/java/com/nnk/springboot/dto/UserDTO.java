@@ -28,4 +28,11 @@ public class UserDTO {
 
     @NotNull(message = "Role is mandatory")
     private String role;
+
+    public UserDTO(String theFullName, String theUsername, String thePassword, String theRole) {
+        this.fullname = theFullName;
+        this.username = theUsername;
+        this.password = thePassword;
+        this.role = theRole;
+    }
 }

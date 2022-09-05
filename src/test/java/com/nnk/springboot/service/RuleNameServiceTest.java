@@ -89,7 +89,7 @@ public class RuleNameServiceTest {
     }
 
     @Test
-    @DisplayName("should be returned ruleName updated when a ruleName is updated")
+    @DisplayName("Should be returned ruleName updated when a ruleName is updated")
     public void should_beReturnedRuleNameUpdated_when_aRuleNameIsUpdated() throws ResourceNotFoundException {
         RuleNameDTO ruleNameToUpdate = new RuleNameDTO("xxx", "xxx", "xxx", "xxx", "xxx", "xxx");
         ruleNameToUpdate.setDescription("ccc");
@@ -122,7 +122,7 @@ public class RuleNameServiceTest {
     }
 
     @Test
-    @DisplayName("should be used RuleNameRepository.delete method when a ruleName will be deleted")
+    @DisplayName("Should be used RuleNameRepository.delete method when a ruleName will be deleted")
     public void should_beUsedRuleNameRepositoryDeleteMethod_when_aRuleNameWillBeDeleted() throws ResourceNotFoundException {
 
         RuleNameEntity ruleName = new RuleNameEntity("xxx", "xxx", "xxx", "xxx", "xxx", "xxx");

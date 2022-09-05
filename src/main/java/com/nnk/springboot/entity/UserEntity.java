@@ -29,4 +29,13 @@ public class UserEntity {
     public UserEntity() {
 
     }
+
+    public UserEntity(String theFullName, String theUsername, String thePassword, String theRole) {
+        this.fullname = theFullName;
+        this.username = theUsername;
+        this.password = thePassword;
+        this.role = theRole;
+    }
+
+
 }

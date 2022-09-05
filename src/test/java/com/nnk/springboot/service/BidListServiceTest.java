@@ -88,7 +88,7 @@ public class BidListServiceTest {
     }
 
     @Test
-    @DisplayName("should be returned bidList updated when a bidList is updated")
+    @DisplayName("Should be returned bidList updated when a bidList is updated")
     public void should_beReturnedBidListUpdated_when_aBidListIsUpdated() throws ResourceNotFoundException {
         BidListDTO bidListToUpdate = new BidListDTO("1", "xxx", 100d);
         bidListToUpdate.setBidQuantity(10d);
@@ -120,7 +120,7 @@ public class BidListServiceTest {
     }
 
     @Test
-    @DisplayName("should be used bidListRepository.delete method when a bidList will be deleted")
+    @DisplayName("Should be used bidListRepository.delete method when a bidList will be deleted")
     public void should_beUsedBidListRepositoryDeleteMethod_when_aBidListWillBeDeleted() throws ResourceNotFoundException {
 
         BidListEntity bidList = new BidListEntity("1", "xxx", 10d);

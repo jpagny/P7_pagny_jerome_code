@@ -88,7 +88,7 @@ public class RatingServiceTest {
     }
 
     @Test
-    @DisplayName("should be returned rating updated when a rating is updated")
+    @DisplayName("Should be returned rating updated when a rating is updated")
     public void should_beReturnedRatingUpdated_when_aRatingIsUpdated() throws ResourceNotFoundException {
         RatingDTO ratingToUpdate = new RatingDTO("xxx", "xxx", "xxx", 10);
         ratingToUpdate.setFitchRating("ccc");
@@ -120,7 +120,7 @@ public class RatingServiceTest {
     }
 
     @Test
-    @DisplayName("should be used RatingRepository.delete method when a rating will be deleted")
+    @DisplayName("Should be used RatingRepository.delete method when a rating will be deleted")
     public void should_beUsedRatingRepositoryDeleteMethod_when_aRatingWillBeDeleted() throws ResourceNotFoundException {
 
         RatingEntity rating = new RatingEntity("xxx", "xxx", "ccc", 10);
