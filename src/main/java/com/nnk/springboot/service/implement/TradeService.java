@@ -45,7 +45,7 @@ public class TradeService implements ITradeService {
     public TradeDTO update(Integer id, TradeDTO tradeDTO) throws ResourceNotFoundException {
 
         TradeEntity tradeFound = tradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist with id : " + id));
 
         String account = tradeDTO.getAccount() != null
                 ? tradeDTO.getAccount()
@@ -71,7 +71,7 @@ public class TradeService implements ITradeService {
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
         TradeEntity tradeFound = tradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist with id : " + id));
 
         tradeRepository.delete(tradeFound);
     }

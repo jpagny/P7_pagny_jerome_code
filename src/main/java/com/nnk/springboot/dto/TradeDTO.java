@@ -43,4 +43,10 @@ public class TradeDTO {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public TradeDTO(String theAccount, String theType, Double theBuyQuantity) {
+        this.account = theAccount;
+        this.type = theType;
+        this.buyQuantity = theBuyQuantity;
+    }
 }
