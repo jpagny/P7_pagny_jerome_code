@@ -25,12 +25,12 @@ public class RatingRepositoryTest {
         // Save
         rating = ratingRepository.save(rating);
         assertNotNull(rating.getId());
-		assertEquals(10, (int) rating.getOrderNumber());
+        assertEquals(10, (int) rating.getOrderNumber());
 
         // Update
         rating.setOrderNumber(20);
         rating = ratingRepository.save(rating);
-		assertEquals(20, (int) rating.getOrderNumber());
+        assertEquals(20, (int) rating.getOrderNumber());
 
         // Find
         List<RatingEntity> listResult = ratingRepository.findAll();

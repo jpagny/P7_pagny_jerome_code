@@ -39,4 +39,13 @@ public class RuleNameEntity {
 
     }
 
+    public RuleNameEntity(String theName, String theDescription, String theJson, String theTemplate, String theSqlStr, String theStringPart) {
+        this.name = theName;
+        this.description = theDescription;
+        this.json = theJson;
+        this.template = theTemplate;
+        this.sqlStr = theSqlStr;
+        this.sqlPart = theStringPart;
+    }
+
 }
