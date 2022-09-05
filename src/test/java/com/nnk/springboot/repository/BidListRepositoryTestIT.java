@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class BidListRepositoryTest {
+public class BidListRepositoryTestIT {
 
 
     @Autowired
