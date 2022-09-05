@@ -47,7 +47,7 @@ public class BidListService implements IBidListService {
     @Override
     public BidListDTO update(Integer id, BidListDTO bidListDTO) throws ResourceNotFoundException {
         BidListEntity bidListFound = bidListRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Bid list doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Bid list doesn't exist with id : " + id));
 
         String account = bidListDTO.getAccount() != null
                 ? bidListDTO.getAccount()
@@ -65,8 +65,6 @@ public class BidListService implements IBidListService {
         bidListFound.setType(type);
         bidListFound.setBidQuantity(quantity);
 
-        bidListFound.setCreationDate(Timestamp.from(Instant.now()));
-
         bidListRepository.save(bidListFound);
 
         return modelMapper.map(bidListFound, BidListDTO.class);
@@ -75,7 +73,7 @@ public class BidListService implements IBidListService {
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
         BidListEntity bidListFound = bidListRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Bid list doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Bid list doesn't exist with id : " + id));
 
         bidListRepository.delete(bidListFound);
     }

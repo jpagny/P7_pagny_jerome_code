@@ -45,4 +45,10 @@ public class BidListDTO {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public BidListDTO(String theAccount, String theType, Double theBidQuantity) {
+        account = theAccount;
+        type = theType;
+        bidQuantity = theBidQuantity;
+    }
 }
