@@ -36,6 +36,7 @@ public class RatingEntity {
     public RatingEntity(String theMoodysRating, String theSandPRating, String theFitchRating, Integer theOrderNumber) {
         this.moodysRating = theMoodysRating;
         this.sandPRating = theSandPRating;
+        this.fitchRating = theFitchRating;
         this.orderNumber = theOrderNumber;
     }
 

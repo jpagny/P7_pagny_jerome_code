@@ -25,4 +25,11 @@ public class RatingDTO {
 
     @NotNull(message = "Order is mandatory")
     private Integer orderNumber;
+
+    public RatingDTO(String theMoodysRating, String theSandPRating, String theFitchRating, Integer theOrderNumber) {
+        this.moodysRating = theMoodysRating;
+        this.sandPRating = theSandPRating;
+        this.fitchRating = theFitchRating;
+        this.orderNumber = theOrderNumber;
+    }
 }

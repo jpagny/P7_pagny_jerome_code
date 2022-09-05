@@ -48,7 +48,7 @@ public class RatingService implements IRatingService {
     public RatingDTO update(Integer id, RatingDTO ratingDTO) throws ResourceNotFoundException {
 
         RatingEntity ratingFound = ratingRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rating doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Rating doesn't exist with id : " + id));
 
         String moodysRating = ratingDTO.getMoodysRating() != null
                 ? ratingDTO.getMoodysRating()
@@ -81,7 +81,7 @@ public class RatingService implements IRatingService {
     public void delete(Integer id) throws ResourceNotFoundException {
 
         RatingEntity ratingFound = ratingRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rating doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Rating doesn't exist with id : " + id));
 
         ratingRepository.delete(ratingFound);
     }
