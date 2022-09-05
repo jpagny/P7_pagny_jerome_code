@@ -32,4 +32,11 @@ public class RatingEntity {
     public RatingEntity() {
 
     }
+
+    public RatingEntity(String theMoodysRating, String theSandPRating, String theFitchRating, Integer theOrderNumber) {
+        this.moodysRating = theMoodysRating;
+        this.sandPRating = theSandPRating;
+        this.orderNumber = theOrderNumber;
+    }
+
 }
