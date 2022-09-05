@@ -29,7 +29,7 @@ public class RatingServiceTest {
     private RatingRepository ratingRepository;
 
     @BeforeEach
-    void initAccountService() {
+    void initService() {
         ModelMapper modelMapper = new ModelMapper();
         ratingService = new RatingService(ratingRepository, modelMapper);
     }

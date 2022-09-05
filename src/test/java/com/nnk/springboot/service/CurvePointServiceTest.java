@@ -29,7 +29,7 @@ public class CurvePointServiceTest {
     private CurvePointRepository curvePointRepository;
 
     @BeforeEach
-    void initAccountService() {
+    void initService() {
         ModelMapper modelMapper = new ModelMapper();
         curvePointService = new CurvePointService(curvePointRepository, modelMapper);
     }

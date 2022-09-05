@@ -32,5 +32,14 @@ public class RuleNameDTO {
     @NotBlank(message = "sqlPart is mandatory")
     private String sqlPart;
 
+    public RuleNameDTO(String theName, String theDescription, String theJson, String theTemplate, String theSqlStr, String theStringPart) {
+        this.name = theName;
+        this.description = theDescription;
+        this.json = theJson;
+        this.template = theTemplate;
+        this.sqlStr = theSqlStr;
+        this.sqlPart = theStringPart;
+    }
+
 
 }

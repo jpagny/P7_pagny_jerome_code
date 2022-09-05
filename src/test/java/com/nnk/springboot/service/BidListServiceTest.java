@@ -29,7 +29,7 @@ public class BidListServiceTest {
     private BidListRepository bidListRepository;
 
     @BeforeEach
-    void initAccountService() {
+    void initService() {
         ModelMapper modelMapper = new ModelMapper();
         bidListService = new BidListService(bidListRepository, modelMapper);
     }

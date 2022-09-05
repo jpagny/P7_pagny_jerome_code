@@ -45,7 +45,7 @@ public class RuleNameService implements IRuleNameService {
     public RuleNameDTO update(Integer id, RuleNameDTO ruleNameDTO) throws ResourceNotFoundException {
 
         RuleNameEntity ruleNameFound = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist with id : " + id));
 
         String name = ruleNameDTO.getName() != null
                 ? ruleNameDTO.getName()
@@ -86,7 +86,7 @@ public class RuleNameService implements IRuleNameService {
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
         RuleNameEntity ruleNameFound = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist with id : " + id));
 
         ruleNameRepository.delete(ruleNameFound);
     }
