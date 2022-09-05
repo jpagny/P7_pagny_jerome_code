@@ -37,9 +37,7 @@ public class CurvePointEntity {
     public CurvePointEntity() {
 
     }
-
-    public CurvePointEntity(int theCurveId, Double theTerm, Double theValue) {
-        curveId = theCurveId;
+    public CurvePointEntity(Double theTerm, Double theValue) {
         term = theTerm;
         value = theValue;
     }
