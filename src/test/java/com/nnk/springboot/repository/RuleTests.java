@@ -1,4 +1,4 @@
-package com.nnk.springboot;
+package com.nnk.springboot.repository;
 
 /*
 @RunWith(SpringRunner.class)

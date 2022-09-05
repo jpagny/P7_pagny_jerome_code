@@ -84,4 +84,11 @@ public class BidListEntity {
     public BidListEntity() {
 
     }
+
+    public BidListEntity(String theAccount,String theType,Double theQuantity) {
+        this.account = theAccount;
+        this.type = theType;
+        this.bidQuantity = theQuantity;
+    }
+
 }

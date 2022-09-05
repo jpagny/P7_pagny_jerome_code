@@ -1,10 +1,9 @@
-package com.nnk.springboot;
+package com.nnk.springboot.repository;
 
 /*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RatingTests {
-
 
 	@Autowired
 	private RatingRepository ratingRepository;

@@ -86,12 +86,6 @@
 				<version>0.8.4</version>
 				<configuration>
 					<excludes>
-						<exclude>com/paymybuddy/constant/*</exclude>
-						<exclude>com/paymybuddy/configuration/*</exclude>
-						<exclude>com/paymybuddy/exception/*</exclude>
-						<exclude>com/paymybuddy/controller/MyErrorController.class</exclude>
-						<exclude>com/paymybuddy/service/implement/MyUserDetailsService.class</exclude>
-						<exclude>com/paymybuddy/PayMyBuddy.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
