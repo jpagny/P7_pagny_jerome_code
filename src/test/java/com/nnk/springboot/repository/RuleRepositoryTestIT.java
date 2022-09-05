@@ -38,8 +38,8 @@ public class RuleRepositoryTestIT {
         // Delete
         Integer id = rule.getId();
         ruleNameRepository.delete(rule);
-        Optional<RuleNameEntity> ruleList = ruleNameRepository.findById(id);
-        assertFalse(ruleList.isPresent());
+        Optional<RuleNameEntity> theRuleName = ruleNameRepository.findById(id);
+        assertFalse(theRuleName.isPresent());
     }
 
 

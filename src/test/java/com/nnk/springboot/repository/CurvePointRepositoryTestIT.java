@@ -37,7 +37,7 @@ public class CurvePointRepositoryTestIT {
         // Delete
         Integer id = curvePoint.getId();
         curvePointRepository.delete(curvePoint);
-        Optional<CurvePointEntity> ruleList = curvePointRepository.findById(id);
-        assertFalse(ruleList.isPresent());
+        Optional<CurvePointEntity> theCurvePoint = curvePointRepository.findById(id);
+        assertFalse(theCurvePoint.isPresent());
     }
 }

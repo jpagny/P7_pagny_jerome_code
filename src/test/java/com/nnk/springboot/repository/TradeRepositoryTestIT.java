@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class TradeRepositoryTestIT {
 
-
     @Autowired
     private TradeRepository tradeRepository;
 
@@ -38,8 +37,8 @@ public class TradeRepositoryTestIT {
         // Delete
         Integer id = trade.getId();
         tradeRepository.delete(trade);
-        Optional<TradeEntity> tradeList = tradeRepository.findById(id);
-        assertFalse(tradeList.isPresent());
+        Optional<TradeEntity> theTrade = tradeRepository.findById(id);
+        assertFalse(theTrade.isPresent());
     }
 
 
