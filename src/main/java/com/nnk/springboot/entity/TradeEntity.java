@@ -80,4 +80,11 @@ public class TradeEntity {
     public TradeEntity() {
 
     }
+
+    public TradeEntity(String theAccount, String theType, Double theBuyQuantity) {
+        this.account = theAccount;
+        this.type = theType;
+        this.buyQuantity = theBuyQuantity;
+    }
+
 }

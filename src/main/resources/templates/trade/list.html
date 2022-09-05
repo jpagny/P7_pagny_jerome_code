@@ -22,9 +22,9 @@
 
             <tr th:each="trade: ${listTrade}">
                 <td th:text="${trade.getId()}">Id</td>
-                <td th:text="${trade.getAccount()}">Id</td>
-                <td th:text="${trade.getType()}">Name</td>
-                <td th:text="${trade.getBuyQuantity()}">Description</td>
+                <td th:text="${trade.getAccount()}">Account</td>
+                <td th:text="${trade.getType()}">Type</td>
+                <td th:text="${trade.getBuyQuantity()}">Buy quantity</td>
                 <td style="width: 15%" class="text-center">
                     <a th:href="@{/admin/trade/update/{id}(id=${trade.getId()})}">Edit</a>&nbsp;|&nbsp;
                     <a th:href="@{/admin/trade/delete/{id}(id=${trade.getId()})}">Delete</a>
