@@ -1,18 +1,15 @@
 package com.nnk.springboot.repository;
 
 import com.nnk.springboot.constant.Role;
-import com.nnk.springboot.entity.TradeEntity;
 import com.nnk.springboot.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 public class UserRepositoryTestIT {
