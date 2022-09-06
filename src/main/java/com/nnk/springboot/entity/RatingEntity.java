@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Table(name = "rating")
 @Entity
@@ -17,15 +19,19 @@ public class RatingEntity {
     private Integer id;
 
     @Column(name = "moodysRating")
+    @NotBlank
     private String moodysRating;
 
     @Column(name = "sandPRating")
+    @NotBlank
     private String sandPRating;
 
     @Column(name = "fitchRating")
+    @NotBlank
     private String fitchRating;
 
     @Column(name = "orderNumber")
+    @NotNull
     private Integer orderNumber;
 
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -19,15 +20,18 @@ public class CurvePointEntity {
     private Integer id;
 
     @Column(name = "curveId")
+    @NotNull
     private Integer curveId;
 
     @Column(name = "asOfDate")
     private Timestamp asOfDate;
 
     @Column(name = "term")
+    @NotNull
     private Double term;
 
     @Column(name = "value")
+    @NotNull
     private Double value;
 
     @CreationTimestamp

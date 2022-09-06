@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
@@ -15,15 +16,19 @@ public class UserEntity {
     private Integer id;
 
     @Column(name = "username")
+    @NotBlank
     private String username;
 
     @Column(name = "password")
+    @NotBlank
     private String password;
 
     @Column(name = "fullname")
+    @NotBlank
     private String fullname;
 
     @Column(name = "role")
+    @NotBlank
     private String role;
 
     public UserEntity() {

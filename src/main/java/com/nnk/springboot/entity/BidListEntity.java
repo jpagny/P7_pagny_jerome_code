@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Table(name = "bidlist")
@@ -18,12 +20,15 @@ public class BidListEntity {
     private Integer id;
 
     @Column(name = "account")
+    @NotBlank
     private String account;
 
     @Column(name = "type")
+    @NotBlank
     private String type;
 
     @Column(name = "bidQuantity")
+    @NotNull
     private Double bidQuantity;
 
     @Column(name = "askQuantity")

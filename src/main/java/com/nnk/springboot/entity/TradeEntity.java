@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -18,12 +20,15 @@ public class TradeEntity {
     private Integer id;
 
     @Column(name = "account")
+    @NotBlank
     private String account;
 
     @Column(name = "type")
+    @NotBlank
     private String type;
 
     @Column(name = "buyQuantity")
+    @NotNull
     private Double buyQuantity;
 
     @Column(name = "sellQuantity")
