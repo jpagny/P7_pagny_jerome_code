@@ -4,18 +4,19 @@ import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.entity.UserEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.UserRepository;
-import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.service.IGenericService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserService implements IUserService {
+public class UserService implements IGenericService<UserDTO> {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
@@ -29,8 +30,10 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserEntity> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        return userRepository.findAll().stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

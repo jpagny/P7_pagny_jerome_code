@@ -4,18 +4,19 @@ import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.entity.TradeEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.TradeRepository;
-import com.nnk.springboot.service.ITradeService;
+import com.nnk.springboot.service.IGenericService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class TradeService implements ITradeService {
+public class TradeService implements IGenericService<TradeDTO> {
 
     private final TradeRepository tradeRepository;
     private final ModelMapper modelMapper;
@@ -29,8 +30,10 @@ public class TradeService implements ITradeService {
     }
 
     @Override
-    public List<TradeEntity> findAll() {
-        return tradeRepository.findAll();
+    public List<TradeDTO> findAll() {
+        return tradeRepository.findAll().stream()
+                .map(trade -> modelMapper.map(trade, TradeDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.nnk.springboot.controller.web;
 
 
 import com.nnk.springboot.dto.TradeDTO;
-import com.nnk.springboot.entity.TradeEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.TradeService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class TradeController implements WebMvcConfigurer {
 
     @RequestMapping("/trade/list")
     public String home(Model model) {
-        List<TradeEntity> listTrade = tradeService.findAll();
+        List<TradeDTO> listTrade = tradeService.findAll();
         model.addAttribute("pageTitle", "CurvePoint - list");
         model.addAttribute("listTrade", listTrade);
         return "trade/list";

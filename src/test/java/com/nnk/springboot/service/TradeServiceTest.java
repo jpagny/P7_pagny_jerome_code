@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,6 +28,8 @@ public class TradeServiceTest {
 
     @Mock
     private TradeRepository tradeRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     void initService() {
@@ -64,13 +67,15 @@ public class TradeServiceTest {
     @Test
     @DisplayName("Should be returned a list of trade when get all trades")
     public void should_beReturnedAListOfTrade_when_getAllTrades() {
-        List<TradeEntity> listTrade = new ArrayList<>();
-        listTrade.add(new TradeEntity("xxx", "ccc", 15d));
-        listTrade.add(new TradeEntity("aaa", "ccc", 10d));
+        List<TradeDTO> listTrade = new ArrayList<>();
+        listTrade.add(new TradeDTO("xxx", "ccc", 15d));
+        listTrade.add(new TradeDTO("aaa", "ccc", 10d));
 
-        when(tradeRepository.findAll()).thenReturn(listTrade);
+        when(tradeRepository.findAll()).thenReturn(listTrade.stream()
+                .map(trade -> modelMapper.map(trade, TradeEntity.class))
+                .collect(Collectors.toList()));
 
-        List<TradeEntity> listTradeFound = tradeService.findAll();
+        List<TradeDTO> listTradeFound = tradeService.findAll();
 
         assertEquals(listTradeFound, listTrade);
     }

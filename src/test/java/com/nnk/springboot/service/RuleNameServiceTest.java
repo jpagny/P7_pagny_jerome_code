@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,6 +29,8 @@ public class RuleNameServiceTest {
 
     @Mock
     private RuleNameRepository ruleNameRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     void initService() {
@@ -65,13 +68,15 @@ public class RuleNameServiceTest {
     @Test
     @DisplayName("Should be returned a list of ruleName when get all ruleNames")
     public void should_beReturnedAListOfRuleName_when_getAllRuleNames() {
-        List<RuleNameEntity> listRuleNames = new ArrayList<>();
-        listRuleNames.add(new RuleNameEntity("xxx", "xxx", "xxx", "xxx", "xxx", "xxx"));
-        listRuleNames.add(new RuleNameEntity("ccc", "ccc", "ccc", "ccc", "ccc", "ccc"));
+        List<RuleNameDTO> listRuleNames = new ArrayList<>();
+        listRuleNames.add(new RuleNameDTO("xxx", "xxx", "xxx", "xxx", "xxx", "xxx"));
+        listRuleNames.add(new RuleNameDTO("ccc", "ccc", "ccc", "ccc", "ccc", "ccc"));
 
-        when(ruleNameRepository.findAll()).thenReturn(listRuleNames);
+        when(ruleNameRepository.findAll()).thenReturn(listRuleNames.stream()
+                .map(ruleName -> modelMapper.map(ruleName, RuleNameEntity.class))
+                .collect(Collectors.toList()));
 
-        List<RuleNameEntity> listRuleNameFound = ruleNameService.findAll();
+        List<RuleNameDTO> listRuleNameFound = ruleNameService.findAll();
 
         assertEquals(listRuleNameFound, listRuleNames);
     }

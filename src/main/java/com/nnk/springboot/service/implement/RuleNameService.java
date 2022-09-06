@@ -4,18 +4,19 @@ import com.nnk.springboot.dto.RuleNameDTO;
 import com.nnk.springboot.entity.RuleNameEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.RuleNameRepository;
-import com.nnk.springboot.service.IRuleNameService;
+import com.nnk.springboot.service.IGenericService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class RuleNameService implements IRuleNameService {
+public class RuleNameService implements IGenericService<RuleNameDTO> {
 
     private final RuleNameRepository ruleNameRepository;
     private final ModelMapper modelMapper;
@@ -29,8 +30,10 @@ public class RuleNameService implements IRuleNameService {
     }
 
     @Override
-    public List<RuleNameEntity> findAll() {
-        return ruleNameRepository.findAll();
+    public List<RuleNameDTO> findAll() {
+        return ruleNameRepository.findAll().stream()
+                .map(ruleName -> modelMapper.map(ruleName, RuleNameDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

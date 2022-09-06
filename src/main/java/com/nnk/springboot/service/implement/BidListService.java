@@ -4,20 +4,19 @@ import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.entity.BidListEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.BidListRepository;
-import com.nnk.springboot.service.IBidListService;
+import com.nnk.springboot.service.IGenericService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class BidListService implements IBidListService {
+public class BidListService implements IGenericService<BidListDTO> {
 
     private final BidListRepository bidListRepository;
     private final ModelMapper modelMapper;
@@ -31,8 +30,11 @@ public class BidListService implements IBidListService {
     }
 
     @Override
-    public List<BidListEntity> findAll() {
-        return bidListRepository.findAll();
+    public List<BidListDTO> findAll() {
+
+        return bidListRepository.findAll().stream()
+                .map(bidList -> modelMapper.map(bidList, BidListDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

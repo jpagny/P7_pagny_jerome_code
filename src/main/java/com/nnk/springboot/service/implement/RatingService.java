@@ -4,18 +4,19 @@ import com.nnk.springboot.dto.RatingDTO;
 import com.nnk.springboot.entity.RatingEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.RatingRepository;
-import com.nnk.springboot.service.IRatingService;
+import com.nnk.springboot.service.IGenericService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class RatingService implements IRatingService {
+public class RatingService implements IGenericService<RatingDTO> {
 
     private final RatingRepository ratingRepository;
     private final ModelMapper modelMapper;
@@ -31,8 +32,10 @@ public class RatingService implements IRatingService {
     }
 
     @Override
-    public List<RatingEntity> findAll() {
-        return ratingRepository.findAll();
+    public List<RatingDTO> findAll() {
+        return ratingRepository.findAll().stream()
+                .map(rating -> modelMapper.map(rating, RatingDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

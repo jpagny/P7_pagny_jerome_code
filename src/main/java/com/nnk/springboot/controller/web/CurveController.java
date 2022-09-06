@@ -1,7 +1,6 @@
 package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.CurvePointDTO;
-import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.CurvePointService;
 import lombok.AllArgsConstructor;
@@ -23,9 +22,10 @@ import java.util.List;
 
 public class CurveController implements WebMvcConfigurer {
     private final CurvePointService curvePointService;
+
     @GetMapping("/curvePoint/list")
     public String home(Model model) {
-        List<CurvePointEntity> listCurvePointEntity = curvePointService.findAll();
+        List<CurvePointDTO> listCurvePointEntity = curvePointService.findAll();
         model.addAttribute("pageTitle", "CurvePoint - list");
         model.addAttribute("listCurvePoints", listCurvePointEntity);
         return "curvePoint/list";

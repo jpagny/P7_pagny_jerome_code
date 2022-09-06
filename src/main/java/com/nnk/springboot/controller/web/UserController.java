@@ -2,7 +2,6 @@ package com.nnk.springboot.controller.web;
 
 
 import com.nnk.springboot.dto.UserDTO;
-import com.nnk.springboot.entity.UserEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.UserService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class UserController {
 
     @RequestMapping("/user/list")
     public String home(Model model) {
-        List<UserEntity> listUser = userService.findAll();
+        List<UserDTO> listUser = userService.findAll();
         model.addAttribute("pageTitle", "User - list");
         model.addAttribute("listUser", listUser);
         return "user/list";

@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,6 +29,8 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     void initService() {
@@ -52,9 +55,7 @@ public class UserServiceTest {
     public void should_beException_when_theUserIsNotFoundById() {
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(ResourceNotFoundException.class, () ->
-                userService.findById(1)
-        );
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> userService.findById(1));
 
         String expectedMessage = "User doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
@@ -65,13 +66,15 @@ public class UserServiceTest {
     @Test
     @DisplayName("Should be returned a list of user when get all users")
     public void should_beReturnedAListOfUser_when_getAllUsers() {
-        List<UserEntity> listUser = new ArrayList<>();
-        listUser.add(new UserEntity("Jerome Pagny", "JP", "xxx", Role.ADMIN.name()));
-        listUser.add(new UserEntity("Richard Pagny", "RP", "xxx", Role.USER.name()));
+        List<UserDTO> listUser = new ArrayList<>();
+        listUser.add(new UserDTO("Jerome Pagny", "JP", "xxx", Role.ADMIN.name()));
+        listUser.add(new UserDTO("Richard Pagny", "RP", "xxx", Role.USER.name()));
 
-        when(userRepository.findAll()).thenReturn(listUser);
+        when(userRepository.findAll()).thenReturn(listUser.stream()
+                .map(curvePoint -> modelMapper.map(curvePoint, UserEntity.class))
+                .collect(Collectors.toList()));
 
-        List<UserEntity> listUserFound = userService.findAll();
+        List<UserDTO> listUserFound = userService.findAll();
 
         assertEquals(listUserFound, listUser);
     }
@@ -110,9 +113,7 @@ public class UserServiceTest {
         UserDTO userDTO = new UserDTO();
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(ResourceNotFoundException.class, () ->
-                userService.update(1, userDTO)
-        );
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> userService.update(1, userDTO));
 
         String expectedMessage = "User doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
@@ -139,9 +140,7 @@ public class UserServiceTest {
     public void should_beException_when_theUserToDeleteDoesntExist() {
         when(userRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(ResourceNotFoundException.class, () ->
-                userService.delete(1)
-        );
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> userService.delete(1));
 
         String expectedMessage = "User doesn't exist with id : 1";
         String actualMessage = exception.getMessage();

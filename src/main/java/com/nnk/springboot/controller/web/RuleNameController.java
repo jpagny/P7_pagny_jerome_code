@@ -2,7 +2,6 @@ package com.nnk.springboot.controller.web;
 
 
 import com.nnk.springboot.dto.RuleNameDTO;
-import com.nnk.springboot.entity.RuleNameEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.RuleNameService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class RuleNameController implements WebMvcConfigurer {
 
     @RequestMapping("/ruleName/list")
     public String home(Model model) {
-        List<RuleNameEntity> listRuleNameEntity = ruleNameService.findAll();
+        List<RuleNameDTO> listRuleNameEntity = ruleNameService.findAll();
         model.addAttribute("pageTitle", "Rule name - list");
         model.addAttribute("listRuleName", listRuleNameEntity);
         return "ruleName/list";

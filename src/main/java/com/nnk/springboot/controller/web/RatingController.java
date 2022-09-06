@@ -2,7 +2,6 @@ package com.nnk.springboot.controller.web;
 
 
 import com.nnk.springboot.dto.RatingDTO;
-import com.nnk.springboot.entity.RatingEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.RatingService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class RatingController implements WebMvcConfigurer {
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
-        List<RatingEntity> listRatingEntity = ratingService.findAll();
+        List<RatingDTO> listRatingEntity = ratingService.findAll();
         model.addAttribute("pageTitle", "Rating - list");
         model.addAttribute("listRating", listRatingEntity);
         return "rating/list";

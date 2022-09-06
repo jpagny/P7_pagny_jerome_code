@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,6 +28,8 @@ public class BidListServiceTest {
 
     @Mock
     private BidListRepository bidListRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     void initService() {
@@ -64,13 +67,15 @@ public class BidListServiceTest {
     @Test
     @DisplayName("Should be returned a list of bidList when get all bidLists")
     public void should_beReturnedAListOfBidList_when_getAllBidList() {
-        List<BidListEntity> listBidList = new ArrayList<>();
-        listBidList.add(new BidListEntity("1", "xxx", 100d));
-        listBidList.add(new BidListEntity("2", "xxx", 20d));
+        List<BidListDTO> listBidList = new ArrayList<>();
+        listBidList.add(new BidListDTO("1", "xxx", 100d));
+        listBidList.add(new BidListDTO("2", "xxx", 20d));
 
-        when(bidListRepository.findAll()).thenReturn(listBidList);
+        when(bidListRepository.findAll()).thenReturn(listBidList.stream()
+                .map(bidList -> modelMapper.map(bidList, BidListEntity.class))
+                .collect(Collectors.toList()));
 
-        List<BidListEntity> listBidListFound = bidListService.findAll();
+        List<BidListDTO> listBidListFound = bidListService.findAll();
 
         assertEquals(listBidListFound, listBidList);
     }

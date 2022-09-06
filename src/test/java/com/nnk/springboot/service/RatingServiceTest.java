@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,6 +28,8 @@ public class RatingServiceTest {
 
     @Mock
     private RatingRepository ratingRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     void initService() {
@@ -64,13 +67,15 @@ public class RatingServiceTest {
     @Test
     @DisplayName("Should be returned a list of rating when get all ratings")
     public void should_beReturnedAListOfRating_when_getAllRatings() {
-        List<RatingEntity> listRating = new ArrayList<>();
-        listRating.add(new RatingEntity("xxx", "xxx", "xxx", 10));
-        listRating.add(new RatingEntity("aaa", "bbb", "ccc", 30));
+        List<RatingDTO> listRating = new ArrayList<>();
+        listRating.add(new RatingDTO("xxx", "xxx", "xxx", 10));
+        listRating.add(new RatingDTO("aaa", "bbb", "ccc", 30));
 
-        when(ratingRepository.findAll()).thenReturn(listRating);
+        when(ratingRepository.findAll()).thenReturn(listRating.stream()
+                .map(rating -> modelMapper.map(rating, RatingEntity.class))
+                .collect(Collectors.toList()));
 
-        List<RatingEntity> listRatingFound = ratingService.findAll();
+        List<RatingDTO> listRatingFound = ratingService.findAll();
 
         assertEquals(listRatingFound, listRating);
     }

@@ -25,7 +25,7 @@ public class BidListController {
 
     @RequestMapping("/bidList/list")
     public String home(Model model) {
-        List<BidListEntity> bidListEntityList = bidListService.findAll();
+        List<BidListDTO> bidListEntityList = bidListService.findAll();
         model.addAttribute("pageTitle", "BidList - list");
         model.addAttribute("listBidList", bidListEntityList);
         return "bidList/list";
