@@ -1,5 +1,6 @@
 package com.nnk.springboot.dto;
 
+import com.nnk.springboot.validator.ValidPassword;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -20,7 +22,7 @@ public class UserDTO {
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @ValidPassword
     private String password;
 
     @NotBlank(message = "Full Name is mandatory")

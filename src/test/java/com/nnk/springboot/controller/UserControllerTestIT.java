@@ -86,7 +86,7 @@ public class UserControllerTestIT {
         mockMvc.perform(post("/admin/user/validate")
                         .param("fullname", "User3")
                         .param("username", "user3")
-                        .param("password", "xxxxxxxxxxxxxxxxxx")
+                        .param("password", "Xx154x1561&")
                         .param("role","USER")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -112,7 +112,7 @@ public class UserControllerTestIT {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/add"))
-                .andExpect(content().string(containsString("Password must be at least 8 characters long")))
+                .andExpect(content().string(containsString("Password must be 8 or more characters in length.")))
                 .andReturn();
     }
 
@@ -133,7 +133,7 @@ public class UserControllerTestIT {
         mockMvc.perform(post("/admin/user/update/2")
                         .param("fullname", "User2")
                         .param("username", "user")
-                        .param("password", "TestTest")
+                        .param("password", "TestTestxTest69&!")
                         .param("role","USER")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -153,7 +153,7 @@ public class UserControllerTestIT {
         mockMvc.perform(post("/admin/user/update/100")
                         .param("fullname", "User2")
                         .param("username", "user")
-                        .param("password", "TestTest")
+                        .param("password", "TestTest12&Test")
                         .param("role","USER")
                         .with(csrf()))
                 .andExpect(status().isOk())

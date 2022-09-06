@@ -84,7 +84,7 @@ public class CurvePointControllerTestIT {
     public void should_beRedirectToCurvePointList_when_addedANewCurvePointAndThereIsNotBadRequest() throws Exception {
 
         mockMvc.perform(post("/admin/curvePoint/validate")
-                        .param("curveId", "3")
+                        .param("curveId", "4")
                         .param("term", "3")
                         .param("value", "10")
                         .with(csrf()))
@@ -92,7 +92,7 @@ public class CurvePointControllerTestIT {
                 .andExpect(view().name("redirect:/admin/curvePoint/list"))
                 .andReturn();
 
-        CurvePointDTO curvePoint = curvePointService.findById(3);
+        CurvePointDTO curvePoint = curvePointService.findById(4);
 
         assertNotNull(curvePoint);
         assertEquals(3, curvePoint.getTerm());

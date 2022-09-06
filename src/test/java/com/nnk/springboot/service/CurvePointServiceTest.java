@@ -37,9 +37,9 @@ public class CurvePointServiceTest {
     @Test
     @DisplayName("Should be returned curvePoint when the curvePoint is found by id")
     public void should_beReturnedCurvePoint_when_theCurvePointIsFoundById() throws ResourceNotFoundException {
-        CurvePointDTO curvePoint = new CurvePointDTO(10d, 15d);
+        CurvePointDTO curvePoint = new CurvePointDTO(1,10d, 15d);
 
-        when(curvePointRepository.findById(any(Integer.class))).thenReturn(Optional.of(new CurvePointEntity(10d, 15d)));
+        when(curvePointRepository.findById(any(Integer.class))).thenReturn(Optional.of(new CurvePointEntity(1,10d, 15d)));
 
         CurvePointDTO curvePointFound = curvePointService.findById(1);
 
@@ -65,8 +65,8 @@ public class CurvePointServiceTest {
     @DisplayName("Should be returned a list of curvePoint when get all curvePoints")
     public void should_beReturnedAListOfCurvePoint_when_getAllCurvePoints() {
         List<CurvePointEntity> listCurvePoints = new ArrayList<>();
-        listCurvePoints.add(new CurvePointEntity(10d, 3d));
-        listCurvePoints.add(new CurvePointEntity(2d, 150d));
+        listCurvePoints.add(new CurvePointEntity(1,10d, 3d));
+        listCurvePoints.add(new CurvePointEntity(2,2d, 150d));
 
         when(curvePointRepository.findAll()).thenReturn(listCurvePoints);
 
@@ -78,9 +78,9 @@ public class CurvePointServiceTest {
     @Test
     @DisplayName("Should be returned curvePoint when a new curvePoint is created")
     public void should_BeReturnedNewCurvePoint_When_ANewCurvePointIsCreated() {
-        CurvePointDTO curvePoint = new CurvePointDTO(10d, 15d);
+        CurvePointDTO curvePoint = new CurvePointDTO(1,10d, 15d);
 
-        when(curvePointRepository.save(any(CurvePointEntity.class))).thenReturn(new CurvePointEntity(10d, 15d));
+        when(curvePointRepository.save(any(CurvePointEntity.class))).thenReturn(new CurvePointEntity(1,10d, 15d));
 
         CurvePointDTO newCurvePoint = curvePointService.create(curvePoint);
 
@@ -90,10 +90,10 @@ public class CurvePointServiceTest {
     @Test
     @DisplayName("Should be returned curvePoint updated when a curvePoint is updated")
     public void should_beReturnedCurvePointUpdated_when_aCurvePointIsUpdated() throws ResourceNotFoundException {
-        CurvePointDTO curvePointToUpdate = new CurvePointDTO(10d, 15d);
+        CurvePointDTO curvePointToUpdate = new CurvePointDTO(1,10d, 15d);
         curvePointToUpdate.setTerm(105d);
 
-        CurvePointEntity curvePointEntity = new CurvePointEntity(105d, 15d);
+        CurvePointEntity curvePointEntity = new CurvePointEntity(1,105d, 15d);
         curvePointEntity.setTerm(105d);
 
         when(curvePointRepository.findById(any(Integer.class))).thenReturn(Optional.of(curvePointEntity));
@@ -124,7 +124,7 @@ public class CurvePointServiceTest {
     @DisplayName("Should be used curvePointRepository.delete method when a curvePoint will be deleted")
     public void should_beUsedCurvePointRepositoryDeleteMethod_when_aCurvePointWillBeDeleted() throws ResourceNotFoundException {
 
-        CurvePointEntity curvePoint = new CurvePointEntity(10d, 15d);
+        CurvePointEntity curvePoint = new CurvePointEntity(1,10d, 15d);
 
         when(curvePointRepository.findById(any(Integer.class))).thenReturn(Optional.of(curvePoint));
         doNothing().when(curvePointRepository).delete(any(CurvePointEntity.class));

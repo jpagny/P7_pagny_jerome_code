@@ -18,7 +18,7 @@ public class CurvePointRepositoryTestIT {
 
     @Test
     public void curvePointTest() {
-        CurvePointEntity curvePoint = new CurvePointEntity(5d, 6d);
+        CurvePointEntity curvePoint = new CurvePointEntity(3,5d, 6d);
 
         // Save
         curvePoint = curvePointRepository.save(curvePoint);
