@@ -3,10 +3,9 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.entity.TradeEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.TradeService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @Controller
 public class TradeController implements WebMvcConfigurer {
-
-    private static final Logger LOG = LogManager.getLogger("TradeController");
     private final TradeService tradeService;
 
     @RequestMapping("/trade/list")
@@ -57,47 +54,32 @@ public class TradeController implements WebMvcConfigurer {
     }
 
     @GetMapping("/trade/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws ResourceNotFoundException {
 
-        try {
-            TradeDTO tradeDTO = tradeService.findById(id);
-            model.addAttribute("tradeDTO", tradeDTO);
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+        TradeDTO tradeDTO = tradeService.findById(id);
+        model.addAttribute("tradeDTO", tradeDTO);
 
         return "trade/update";
     }
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid TradeDTO tradeDTO,
-                              BindingResult result, Model model) {
-        try {
+                              BindingResult result, Model model) throws ResourceNotFoundException {
 
-            if (result.hasErrors()) {
-                return "trade/update";
-            }
-
-            tradeService.update(id, tradeDTO);
-
-            model.addAttribute("listTrade", tradeService.findAll());
-
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
+        if (result.hasErrors()) {
+            return "trade/update";
         }
+
+        tradeService.update(id, tradeDTO);
+
+        model.addAttribute("listTrade", tradeService.findAll());
 
         return "redirect:/admin/trade/list";
     }
 
     @GetMapping("/trade/delete/{id}")
-    public String deleteTrade(@PathVariable("id") Integer id) {
-        try {
-            tradeService.delete(id);
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+    public String deleteTrade(@PathVariable("id") Integer id) throws ResourceNotFoundException {
+        tradeService.delete(id);
 
         return "redirect:/admin/trade/list";
     }
