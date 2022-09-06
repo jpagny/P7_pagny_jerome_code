@@ -92,10 +92,10 @@ public class CurvePointControllerTestIT {
                 .andExpect(view().name("redirect:/admin/curvePoint/list"))
                 .andReturn();
 
-        CurvePointDTO curvePoint = curvePointService.findById(4);
+        CurvePointDTO curvePoint = curvePointService.findById(1);
 
         assertNotNull(curvePoint);
-        assertEquals(3, curvePoint.getTerm());
+        assertEquals(30, curvePoint.getTerm());
     }
 
     @Test
