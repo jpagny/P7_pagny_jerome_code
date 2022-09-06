@@ -3,10 +3,9 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.entity.UserEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.UserService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @Controller
 public class UserController {
-
-    private static final Logger LOG = LogManager.getLogger("UserController");
     private final UserService userService;
 
     @RequestMapping("/user/list")
@@ -59,45 +56,32 @@ public class UserController {
     }
 
     @GetMapping("/user/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        try {
-            UserDTO userDTO = userService.findById(id);
-            model.addAttribute("userDTO", userDTO);
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws ResourceNotFoundException {
+        UserDTO userDTO = userService.findById(id);
+        model.addAttribute("userDTO", userDTO);
+
         return "user/update";
     }
 
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid UserDTO userDTO, BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") Integer id, @Valid UserDTO userDTO, BindingResult result, Model model) throws ResourceNotFoundException {
 
-        try {
-            if (result.hasErrors()) {
-                return "user/update";
-            }
-
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            userDTO.setPassword(encoder.encode(userDTO.getPassword()));
-
-            userService.update(id, userDTO);
-            model.addAttribute("listUser", userService.findAll());
-
-        } catch (Exception ex) {
-            LOG.error("Exception : " + ex);
+        if (result.hasErrors()) {
+            return "user/update";
         }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        userDTO.setPassword(encoder.encode(userDTO.getPassword()));
+
+        userService.update(id, userDTO);
+        model.addAttribute("listUser", userService.findAll());
 
         return "redirect:/admin/user/list";
     }
 
     @GetMapping("/user/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id) {
-        try {
-            userService.delete(id);
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+    public String deleteUser(@PathVariable("id") Integer id) throws ResourceNotFoundException {
+        userService.delete(id);
 
         return "redirect:/admin/user/list";
     }
