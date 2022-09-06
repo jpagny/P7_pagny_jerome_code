@@ -3,10 +3,9 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.RatingDTO;
 import com.nnk.springboot.entity.RatingEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.RatingService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @Controller
 public class RatingController implements WebMvcConfigurer {
-
-    private static final Logger LOG = LogManager.getLogger("RatingController");
     private final RatingService ratingService;
 
     @RequestMapping("/rating/list")
@@ -56,46 +53,32 @@ public class RatingController implements WebMvcConfigurer {
     }
 
     @GetMapping("/rating/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        try {
-            RatingDTO rating = ratingService.findById(id);
-            model.addAttribute("ratingDTO", rating);
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws ResourceNotFoundException {
+
+        RatingDTO rating = ratingService.findById(id);
+        model.addAttribute("ratingDTO", rating);
 
         return "rating/update";
     }
 
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid RatingDTO ratingDTO,
-                               BindingResult result, Model model) {
-        try {
+                               BindingResult result, Model model) throws ResourceNotFoundException {
 
-            if (result.hasErrors()) {
-                return "rating/update";
-            }
-
-            ratingService.update(id, ratingDTO);
-
-            model.addAttribute("curvePoints", ratingService.findAll());
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
+        if (result.hasErrors()) {
+            return "rating/update";
         }
+
+        ratingService.update(id, ratingDTO);
+
+        model.addAttribute("curvePoints", ratingService.findAll());
 
         return "redirect:/admin/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id) {
-        try {
-            ratingService.delete(id);
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
-
+    public String deleteRating(@PathVariable("id") Integer id) throws ResourceNotFoundException {
+        ratingService.delete(id);
         return "redirect:/admin/rating/list";
     }
 }
