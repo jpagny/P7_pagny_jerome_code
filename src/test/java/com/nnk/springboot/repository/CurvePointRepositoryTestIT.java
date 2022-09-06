@@ -4,6 +4,8 @@ import com.nnk.springboot.entity.CurvePointEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +13,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class CurvePointRepositoryTestIT {
 
     @Autowired
