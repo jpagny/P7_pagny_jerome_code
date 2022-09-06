@@ -2,10 +2,9 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.entity.CurvePointEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.CurvePointService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class CurveController implements WebMvcConfigurer {
-
-    private static final Logger LOG = LogManager.getLogger("CurveController");
     private final CurvePointService curvePointService;
-
     @GetMapping("/curvePoint/list")
     public String home(Model model) {
         List<CurvePointEntity> listCurvePointEntity = curvePointService.findAll();
@@ -57,49 +53,31 @@ public class CurveController implements WebMvcConfigurer {
     }
 
     @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws ResourceNotFoundException {
 
-        try {
-            CurvePointDTO curvePoint = curvePointService.findById(id);
-            model.addAttribute("curvePointDTO", curvePoint);
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+        CurvePointDTO curvePoint = curvePointService.findById(id);
+        model.addAttribute("curvePointDTO", curvePoint);
 
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePointDTO curvePointDTO,
-                                   BindingResult result, Model model) {
-        try {
+                                   BindingResult result, Model model) throws ResourceNotFoundException {
 
-            if (result.hasErrors()) {
-                return "curvePoint/update";
-            }
-
-            curvePointService.update(id, curvePointDTO);
-
-            model.addAttribute("curvePoints", curvePointService.findAll());
-
-            return "redirect:/admin/curvePoint/list";
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
+        if (result.hasErrors()) {
+            return "curvePoint/update";
         }
+
+        curvePointService.update(id, curvePointDTO);
+        model.addAttribute("curvePoints", curvePointService.findAll());
 
         return "redirect:/admin/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteCurvePoint(@PathVariable("id") Integer id) {
-        try {
-            curvePointService.delete(id);
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
-
+    public String deleteCurvePoint(@PathVariable("id") Integer id) throws ResourceNotFoundException {
+        curvePointService.delete(id);
         return "redirect:/admin/curvePoint/list";
     }
 }

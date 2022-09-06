@@ -116,7 +116,7 @@ public class BidListControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be returned 200 when user has role ADMIN and get bidList update with bidList 1 page")
+    @DisplayName("Should be returned 200 when user has role ADMIN and get bidList update with id 1 page")
     @WithUserDetails("admin")
     public void should_brReturned200_when_userHasRoleADMINAndGetBidListUpdateWithBidList1Page() throws Exception {
         this.mockMvc.perform(get("/admin/bidList/update/1"))
@@ -145,9 +145,9 @@ public class BidListControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be returned page 404 when bidList updated a unknown user")
+    @DisplayName("Should be returned page 400 when bidList updated a unknown id")
     @WithUserDetails("admin")
-    public void should_beReturnedPage404_when_bidListUpdatedAUnknownUser() throws Exception {
+    public void should_beReturnedPage400_when_bidListUpdatedAUnknownId() throws Exception {
         mockMvc.perform(post("/admin/bidList/update/100")
                         .param("bidListId", "100")
                         .param("account", "Test")
@@ -155,7 +155,7 @@ public class BidListControllerTestIT {
                         .param("bidQuantity", "100")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("error/404.html"))
+                .andExpect(view().name("error/400.html"))
                 .andReturn();
 
     }
@@ -193,14 +193,14 @@ public class BidListControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be returned page 404 when bidList deleted a unknown user")
+    @DisplayName("Should be returned page 400 when bidList deleted a unknown id")
     @WithUserDetails("admin")
-    public void should_beReturnedPage404_when_bidListDeletedAUnknownUser() throws Exception {
+    public void should_beReturnedPage400_when_bidListDeletedAUnknownId() throws Exception {
 
         mockMvc.perform(get("/admin/bidList/delete/100")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("error/404.html"))
+                .andExpect(view().name("error/400.html"))
                 .andReturn();
     }
 
