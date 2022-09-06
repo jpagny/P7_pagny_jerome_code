@@ -1,3 +1,9 @@
+# Login / Password pour tester
+
+- admin / Test
+
+- user / Test
+
 # spring-boot
 ## Technical:
 
