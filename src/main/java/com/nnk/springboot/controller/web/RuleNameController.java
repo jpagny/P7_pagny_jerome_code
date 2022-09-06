@@ -3,10 +3,9 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.RuleNameDTO;
 import com.nnk.springboot.entity.RuleNameEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.RuleNameService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,8 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @Controller
 public class RuleNameController implements WebMvcConfigurer {
-
-    private static final Logger LOG = LogManager.getLogger("RuleNameController");
     private final RuleNameService ruleNameService;
 
     @RequestMapping("/ruleName/list")
@@ -57,43 +54,32 @@ public class RuleNameController implements WebMvcConfigurer {
     }
 
     @GetMapping("/ruleName/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        try {
-            RuleNameDTO ruleName = ruleNameService.findById(id);
-            model.addAttribute("ruleNameDTO", ruleName);
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws ResourceNotFoundException {
+
+        RuleNameDTO ruleName = ruleNameService.findById(id);
+        model.addAttribute("ruleNameDTO", ruleName);
+
         return "ruleName/update";
     }
 
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleNameDTO ruleNameDTO,
-                                 BindingResult result, Model model) {
-        try {
+                                 BindingResult result, Model model) throws ResourceNotFoundException {
 
-            if (result.hasErrors()) {
-                return "ruleName/update";
-            }
-
-            ruleNameService.update(id, ruleNameDTO);
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
+        if (result.hasErrors()) {
+            return "ruleName/update";
         }
+
+        ruleNameService.update(id, ruleNameDTO);
 
         model.addAttribute("listRuleName", ruleNameService.findAll());
         return "redirect:/admin/ruleName/list";
     }
 
     @GetMapping("/ruleName/delete/{id}")
-    public String deleteRuleName(@PathVariable("id") Integer id) {
-        try {
-            ruleNameService.delete(id);
+    public String deleteRuleName(@PathVariable("id") Integer id) throws ResourceNotFoundException {
+        ruleNameService.delete(id);
 
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
         return "redirect:/admin/ruleName/list";
     }
 }
