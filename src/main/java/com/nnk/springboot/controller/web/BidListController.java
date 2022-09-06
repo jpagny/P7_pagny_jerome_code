@@ -3,10 +3,9 @@ package com.nnk.springboot.controller.web;
 
 import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.entity.BidListEntity;
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.BidListService;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +21,6 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class BidListController {
-
-    private static final Logger LOG = LogManager.getLogger("BidListController");
     private final BidListService bidListService;
 
     @RequestMapping("/bidList/list")
@@ -56,49 +53,32 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws ResourceNotFoundException {
 
-        try {
-            BidListDTO bidList = bidListService.findById(id);
-            model.addAttribute("bidListDTO", bidList);
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
+        BidListDTO bidList = bidListService.findById(id);
+        model.addAttribute("bidListDTO", bidList);
 
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidListDTO bidListDTO,
-                            BindingResult result, Model model) {
+                            BindingResult result, Model model) throws ResourceNotFoundException {
 
-        try {
-
-            if (result.hasErrors()) {
-                return "bidList/update";
-            }
-
-            bidListService.update(id, bidListDTO);
-
-            model.addAttribute("listBidList", bidListService.findAll());
-
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
+        if (result.hasErrors()) {
+            return "bidList/update";
         }
+
+        bidListService.update(id, bidListDTO);
+
+        model.addAttribute("listBidList", bidListService.findAll());
 
         return "redirect:/admin/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id) {
-        try {
-            bidListService.delete(id);
-
-        } catch (Exception ex) {
-            LOG.error("Exception :" + ex);
-        }
-
+    public String deleteBid(@PathVariable("id") Integer id) throws ResourceNotFoundException {
+        bidListService.delete(id);
         return "redirect:/admin/bidList/list";
     }
 }

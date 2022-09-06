@@ -1,35 +1,30 @@
 package com.nnk.springboot.controller.web;
 
+import com.nnk.springboot.exception.ResourceNotFoundException;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
-public class MyErrorController implements ErrorController {
-    @RequestMapping("/error")
-    public String handleError(HttpServletRequest request) {
+@ControllerAdvice
+public class MyErrorController {
 
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+    // For UI Pages
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String resourceNotFoundException(ResourceNotFoundException ex) {
+        return "error/404.html";
+    }
 
-        if (status != null) {
-            int statusCode = Integer.parseInt(status.toString());
-
-            switch (statusCode) {
-
-                case 403:
-                case 404:
-                    return "error/" + status;
-
-                default:
-                    return "error/unknown";
-            }
-
-        }
-
-        return "error/unknown";
+    // For REST APIs
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> illegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }

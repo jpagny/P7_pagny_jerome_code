@@ -51,7 +51,7 @@ public class BidListControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be forbidden page when user had role USER and try to access bidList page")
+    @DisplayName("Should be forbidden page when user had role USER and try to access bidList pages")
     @WithUserDetails()
     public void should_beForbiddenPage_when_userHadRoleUSERAndTryToAccessBidListPage() throws Exception {
         this.mockMvc.perform(get("/admin/bidList/list"))
@@ -99,7 +99,7 @@ public class BidListControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be redirect to bidList/list and  added a message error when there is a bad request")
+    @DisplayName("Should be redirect to bidList/list and added a message error when there is a bad request")
     @WithUserDetails("admin")
     public void should_beRedirectToBidListListAndAddedAMessageError_when_thereIsABadRequest() throws Exception {
 
@@ -123,7 +123,6 @@ public class BidListControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
     @Test
     @DisplayName("Should be redirect to bidList/list when bidList updated is success")
     @WithUserDetails("admin")
@@ -146,6 +145,21 @@ public class BidListControllerTestIT {
     }
 
     @Test
+    @DisplayName("Should be returned page 404 when bidList updated a unknown user")
+    @WithUserDetails("admin")
+    public void should_beReturnedPage404_when_bidListUpdatedAUnknownUser() throws Exception {
+        mockMvc.perform(post("/admin/bidList/update/100")
+                        .param("bidListId", "100")
+                        .param("account", "Test")
+                        .param("type", "Test")
+                        .param("bidQuantity", "100")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/404.html"))
+                .andReturn();
+
+    }
+    @Test
     @DisplayName("Should be redirect to bidList/update when bidList updated is fail")
     @WithUserDetails("admin")
     public void should_beRedirectToBidListUpdate_when_bidListUpdatedIsFail() throws Exception {
@@ -166,21 +180,6 @@ public class BidListControllerTestIT {
         assertNotNull(bidList);
         assertEquals(2, bidList.getBidQuantity());
     }
-
-    @Test
-    @DisplayName("Should be exception when bidList updated is fail")
-    @WithUserDetails("admin")
-    public void shouldBeExceptionWhenBidListUpdatedIsFail() throws Exception {
-        mockMvc.perform(post("/admin/bidList/update/100")
-                        .param("bidListId", "100")
-                        .param("account", "Test")
-                        .param("type", "Test")
-                        .param("bidQuantity", "100")
-                        .with(csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andReturn();
-    }
-
     @Test
     @DisplayName("Should be redirect to bidList/list when bidList deleted is success")
     @WithUserDetails("admin")
@@ -194,13 +193,14 @@ public class BidListControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be exception when bidList deleted is fail")
+    @DisplayName("Should be returned page 404 when bidList deleted a unknown user")
     @WithUserDetails("admin")
-    public void should_beException_when_bidListDeletedIsFail() throws Exception {
+    public void should_beReturnedPage404_when_bidListDeletedAUnknownUser() throws Exception {
 
-        mockMvc.perform(get("/admin/bidList/delete/1")
+        mockMvc.perform(get("/admin/bidList/delete/100")
                         .with(csrf()))
-                .andExpect(status().is3xxRedirection())
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/404.html"))
                 .andReturn();
     }
 
