@@ -2,6 +2,7 @@ package com.nnk.springboot.repository;
 
 import com.nnk.springboot.constant.Role;
 import com.nnk.springboot.entity.UserEntity;
+import com.nnk.springboot.repository.impl.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

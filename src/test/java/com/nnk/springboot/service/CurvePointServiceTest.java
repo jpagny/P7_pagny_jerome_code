@@ -3,7 +3,7 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.entity.CurvePointEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.repository.CurvePointRepository;
+import com.nnk.springboot.repository.impl.CurvePointRepository;
 import com.nnk.springboot.service.implement.CurvePointService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,8 +33,7 @@ public class CurvePointServiceTest {
 
     @BeforeEach
     void initService() {
-        ModelMapper modelMapper = new ModelMapper();
-        curvePointService = new CurvePointService(curvePointRepository, modelMapper);
+        curvePointService = new CurvePointService(curvePointRepository);
     }
 
     @Test
@@ -58,7 +57,7 @@ public class CurvePointServiceTest {
                 curvePointService.findById(1)
         );
 
-        String expectedMessage = "Curve point doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -119,7 +118,7 @@ public class CurvePointServiceTest {
                 curvePointService.update(1, curvePointDTO)
         );
 
-        String expectedMessage = "Curve point doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -148,7 +147,7 @@ public class CurvePointServiceTest {
                 curvePointService.delete(1)
         );
 
-        String expectedMessage = "Curve point doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));

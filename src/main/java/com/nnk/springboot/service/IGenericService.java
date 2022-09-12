@@ -1,18 +1,14 @@
 package com.nnk.springboot.service;
 
-import com.nnk.springboot.dto.RatingDTO;
-import com.nnk.springboot.entity.RatingEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 
 import java.util.List;
 
-public interface IGenericService<T> {
-
-    T findById(Integer id) throws ResourceNotFoundException;
-    List<T> findAll();
-    T create(T dto);
-    T update(Integer id, T dto) throws ResourceNotFoundException;
-    void delete(Integer id) throws ResourceNotFoundException;
-
+public interface IGenericService<DTO> {
+    DTO findById(Integer id) throws ResourceNotFoundException;
+    List<DTO> findAll();
+    DTO create(DTO dto);
+    DTO update(Integer id, DTO dto) throws ResourceNotFoundException;
+    void delete(Integer id) throws ResourceNotFoundException, NoSuchMethodException;
 
 }

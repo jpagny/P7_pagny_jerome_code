@@ -3,52 +3,30 @@ package com.nnk.springboot.service.implement;
 import com.nnk.springboot.dto.RuleNameDTO;
 import com.nnk.springboot.entity.RuleNameEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.repository.RuleNameRepository;
-import com.nnk.springboot.service.IGenericService;
-import lombok.RequiredArgsConstructor;
+import com.nnk.springboot.repository.impl.RuleNameRepository;
+import com.nnk.springboot.service.AbstractServiceCrud;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class RuleNameService implements IGenericService<RuleNameDTO> {
+public class RuleNameService extends AbstractServiceCrud<RuleNameEntity, RuleNameDTO> {
 
     private final RuleNameRepository ruleNameRepository;
     private final ModelMapper modelMapper;
 
-    @Override
-    public RuleNameDTO findById(Integer id) throws ResourceNotFoundException {
-        RuleNameEntity ruleNameEntity = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist with id : " + id));
-
-        return modelMapper.map(ruleNameEntity, RuleNameDTO.class);
-    }
-
-    @Override
-    public List<RuleNameDTO> findAll() {
-        return ruleNameRepository.findAll().stream()
-                .map(ruleName -> modelMapper.map(ruleName, RuleNameDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public RuleNameDTO create(RuleNameDTO ruleNameDTO) {
-        RuleNameEntity ruleNameEntity = modelMapper.map(ruleNameDTO, RuleNameEntity.class);
-        RuleNameEntity ruleNameEntitySaved = ruleNameRepository.save(ruleNameEntity);
-
-        return modelMapper.map(ruleNameEntitySaved, RuleNameDTO.class);
+    public RuleNameService(RuleNameRepository theRuleNameRepository) {
+        super(theRuleNameRepository);
+        this.modelMapper = new ModelMapper();
+        this.ruleNameRepository = theRuleNameRepository;
     }
 
     @Override
     public RuleNameDTO update(Integer id, RuleNameDTO ruleNameDTO) throws ResourceNotFoundException {
 
         RuleNameEntity ruleNameFound = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist with id : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
 
         String name = ruleNameDTO.getName() != null
                 ? ruleNameDTO.getName()
@@ -86,11 +64,4 @@ public class RuleNameService implements IGenericService<RuleNameDTO> {
         return modelMapper.map(ruleNameFound, RuleNameDTO.class);
     }
 
-    @Override
-    public void delete(Integer id) throws ResourceNotFoundException {
-        RuleNameEntity ruleNameFound = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rule name doesn't exist with id : " + id));
-
-        ruleNameRepository.delete(ruleNameFound);
-    }
 }

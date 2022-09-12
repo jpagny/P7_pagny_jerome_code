@@ -3,52 +3,30 @@ package com.nnk.springboot.service.implement;
 import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.entity.TradeEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.repository.TradeRepository;
-import com.nnk.springboot.service.IGenericService;
-import lombok.RequiredArgsConstructor;
+import com.nnk.springboot.repository.impl.TradeRepository;
+import com.nnk.springboot.service.AbstractServiceCrud;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class TradeService implements IGenericService<TradeDTO> {
+public class TradeService extends AbstractServiceCrud<TradeEntity, TradeDTO> {
 
     private final TradeRepository tradeRepository;
     private final ModelMapper modelMapper;
 
-    @Override
-    public TradeDTO findById(Integer id) throws ResourceNotFoundException {
-        TradeEntity tradeEntity = tradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist with id : " + id));
-
-        return modelMapper.map(tradeEntity, TradeDTO.class);
-    }
-
-    @Override
-    public List<TradeDTO> findAll() {
-        return tradeRepository.findAll().stream()
-                .map(trade -> modelMapper.map(trade, TradeDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public TradeDTO create(TradeDTO tradeDTO) {
-        TradeEntity tradeEntity = modelMapper.map(tradeDTO, TradeEntity.class);
-        TradeEntity tradeEntitySaved = tradeRepository.save(tradeEntity);
-
-        return modelMapper.map(tradeEntitySaved, TradeDTO.class);
+    public TradeService(TradeRepository theTradeRepository) {
+        super(theTradeRepository);
+        this.modelMapper = new ModelMapper();
+        this.tradeRepository = theTradeRepository;
     }
 
     @Override
     public TradeDTO update(Integer id, TradeDTO tradeDTO) throws ResourceNotFoundException {
 
         TradeEntity tradeFound = tradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist with id : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
 
         String account = tradeDTO.getAccount() != null
                 ? tradeDTO.getAccount()
@@ -69,14 +47,6 @@ public class TradeService implements IGenericService<TradeDTO> {
         tradeRepository.save(tradeFound);
 
         return modelMapper.map(tradeFound, TradeDTO.class);
-    }
-
-    @Override
-    public void delete(Integer id) throws ResourceNotFoundException {
-        TradeEntity tradeFound = tradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Trade doesn't exist with id : " + id));
-
-        tradeRepository.delete(tradeFound);
     }
 
 }

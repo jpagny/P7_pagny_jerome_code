@@ -4,7 +4,7 @@ import com.nnk.springboot.constant.Role;
 import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.entity.UserEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.repository.UserRepository;
+import com.nnk.springboot.repository.impl.UserRepository;
 import com.nnk.springboot.service.implement.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,8 +34,7 @@ public class UserServiceTest {
 
     @BeforeEach
     void initService() {
-        ModelMapper modelMapper = new ModelMapper();
-        userService = new UserService(userRepository, modelMapper);
+        userService = new UserService(userRepository);
     }
 
     @Test
@@ -57,7 +56,7 @@ public class UserServiceTest {
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> userService.findById(1));
 
-        String expectedMessage = "User doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -115,7 +114,7 @@ public class UserServiceTest {
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> userService.update(1, userDTO));
 
-        String expectedMessage = "User doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -142,7 +141,7 @@ public class UserServiceTest {
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> userService.delete(1));
 
-        String expectedMessage = "User doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));

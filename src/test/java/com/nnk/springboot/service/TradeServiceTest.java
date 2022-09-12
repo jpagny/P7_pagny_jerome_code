@@ -3,7 +3,7 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.entity.TradeEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.repository.TradeRepository;
+import com.nnk.springboot.repository.impl.TradeRepository;
 import com.nnk.springboot.service.implement.TradeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,8 +33,7 @@ public class TradeServiceTest {
 
     @BeforeEach
     void initService() {
-        ModelMapper modelMapper = new ModelMapper();
-        tradeService = new TradeService(tradeRepository, modelMapper);
+        tradeService = new TradeService(tradeRepository);
     }
 
     @Test
@@ -58,7 +57,7 @@ public class TradeServiceTest {
                 tradeService.findById(1)
         );
 
-        String expectedMessage = "Trade doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -118,7 +117,7 @@ public class TradeServiceTest {
                 tradeService.update(1, TradeDTO)
         );
 
-        String expectedMessage = "Trade doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -147,7 +146,7 @@ public class TradeServiceTest {
                 tradeService.delete(1)
         );
 
-        String expectedMessage = "Trade doesn't exist with id : 1";
+        String expectedMessage = "Resource doesn't exist with id : 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));

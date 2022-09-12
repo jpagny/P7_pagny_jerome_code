@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller.web;
+package com.nnk.springboot.controller;
 
 
 import org.springframework.stereotype.Controller;

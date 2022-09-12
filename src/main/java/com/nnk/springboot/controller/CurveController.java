@@ -1,4 +1,4 @@
-package com.nnk.springboot.controller.web;
+package com.nnk.springboot.controller;
 
 import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.exception.ResourceNotFoundException;

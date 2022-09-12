@@ -3,52 +3,30 @@ package com.nnk.springboot.service.implement;
 import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.entity.UserEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
-import com.nnk.springboot.repository.UserRepository;
-import com.nnk.springboot.service.IGenericService;
-import lombok.RequiredArgsConstructor;
+import com.nnk.springboot.repository.impl.UserRepository;
+import com.nnk.springboot.service.AbstractServiceCrud;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class UserService implements IGenericService<UserDTO> {
+public class UserService extends AbstractServiceCrud<UserEntity, UserDTO> {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    @Override
-    public UserDTO findById(Integer id) throws ResourceNotFoundException {
-        UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id : " + id));
-
-        return modelMapper.map(userEntity, UserDTO.class);
-    }
-
-    @Override
-    public List<UserDTO> findAll() {
-        return userRepository.findAll().stream()
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public UserDTO create(UserDTO userDTO) {
-        UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
-        UserEntity userEntitySaved = userRepository.save(userEntity);
-
-        return modelMapper.map(userEntitySaved, UserDTO.class);
+    public UserService(UserRepository theUserRepository) {
+        super(theUserRepository);
+        this.modelMapper = new ModelMapper();
+        this.userRepository = theUserRepository;
     }
 
     @Override
     public UserDTO update(Integer id, UserDTO userDTO) throws ResourceNotFoundException {
 
         UserEntity userFound = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
 
         String username = userDTO.getUsername() != null
                 ? userDTO.getUsername()
@@ -66,25 +44,14 @@ public class UserService implements IGenericService<UserDTO> {
                 ? userDTO.getRole()
                 : userFound.getRole();
 
-
         userFound.setUsername(username);
         userFound.setPassword(password);
         userFound.setFullname(fullName);
         userFound.setRole(role);
 
-
         userRepository.save(userFound);
 
         return modelMapper.map(userFound, UserDTO.class);
     }
-
-    @Override
-    public void delete(Integer id) throws ResourceNotFoundException {
-        UserEntity userFound = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id : " + id));
-
-        userRepository.delete(userFound);
-    }
-
 
 }

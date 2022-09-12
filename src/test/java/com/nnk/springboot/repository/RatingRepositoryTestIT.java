@@ -2,6 +2,7 @@ package com.nnk.springboot.repository;
 
 
 import com.nnk.springboot.entity.RatingEntity;
+import com.nnk.springboot.repository.impl.RatingRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

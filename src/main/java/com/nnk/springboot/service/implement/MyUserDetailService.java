@@ -1,7 +1,7 @@
 package com.nnk.springboot.service.implement;
 
 import com.nnk.springboot.entity.UserEntity;
-import com.nnk.springboot.repository.UserRepository;
+import com.nnk.springboot.repository.impl.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
