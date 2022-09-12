@@ -59,9 +59,29 @@ public class HomeControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be redirect to bidList/list page when get page /admin/home")
+    @DisplayName("Should be redirect to /admin/home page when get page /home and has admin role")
     @WithUserDetails("admin")
-    public void should_beRedirectToBidListListPage_when_getPageAdminHome() throws Exception {
+    public void should_beRedirectToAdminHomePage_when_getPageHomeAndHasAdminRole() throws Exception {
+        mockMvc.perform(get("/home"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/home"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be redirect to /user/home page when get page /home and has user role")
+    @WithUserDetails()
+    public void should_beRedirectToUserHomePage_when_getPageHomeAndHasUserRole() throws Exception {
+        mockMvc.perform(get("/home"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/user/home"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("Should be redirect to /admin/bidList/list page when get page /admin/home and has admin role")
+    @WithUserDetails("admin")
+    public void should_beRedirectToAdminBidListList_when_getPageAdminHomeAndHasAdminRole() throws Exception {
         mockMvc.perform(get("/admin/home"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/admin/bidList/list"))
@@ -69,13 +89,14 @@ public class HomeControllerTestIT {
     }
 
     @Test
-    @DisplayName("Should be homeUser page when get page /user/home")
+    @DisplayName("Should be load home user view when get page /user/home and has user role")
     @WithUserDetails()
-    public void should_beHomeUserPage_when_getPageUserHome() throws Exception {
+    public void should_beLoadHomeUserView_when_getPageUserHomeAndHasUserRole() throws Exception {
         mockMvc.perform(get("/user/home"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("homeUser"))
                 .andReturn();
     }
+
 
 }

@@ -26,7 +26,7 @@ public class TradeService extends AbstractServiceCrud<TradeEntity, TradeDTO> {
     public TradeDTO update(Integer id, TradeDTO tradeDTO) throws ResourceNotFoundException {
 
         TradeEntity tradeFound = tradeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         String account = tradeDTO.getAccount() != null
                 ? tradeDTO.getAccount()

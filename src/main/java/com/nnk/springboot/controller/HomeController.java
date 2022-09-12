@@ -32,11 +32,8 @@ public class HomeController {
                     case "ROLE_ADMIN":
                         return "redirect:/admin/home";
 
-                    case "ROLE_USER":
-                        return "redirect:/user/home";
-
                     default:
-                        return "redirect:/error/";
+                        return "redirect:/user/home";
                 }
 
             }

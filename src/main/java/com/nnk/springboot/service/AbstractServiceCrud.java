@@ -29,14 +29,14 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
     @Override
     public void delete(Integer id) throws ResourceNotFoundException {
         Entity resource = iBaseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
         iBaseRepository.delete(resource);
     }
 
     @Override
     public DTO findById(Integer id) throws ResourceNotFoundException {
         Entity entity = iBaseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         return modelMapper.map(entity, dtoCLass);
     }
@@ -48,6 +48,8 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
                 .collect(Collectors.toList());
     }
 
+
+
     @Override
     public DTO create(DTO dto) {
         Entity entity = modelMapper.map(dto, entityClass);
@@ -56,7 +58,6 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
         return modelMapper.map(entitySaved, dtoCLass);
 
     }
-
     @Override
     public abstract DTO update(Integer id, DTO dto) throws ResourceNotFoundException;
 

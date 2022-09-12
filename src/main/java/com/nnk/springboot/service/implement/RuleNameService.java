@@ -26,7 +26,7 @@ public class RuleNameService extends AbstractServiceCrud<RuleNameEntity, RuleNam
     public RuleNameDTO update(Integer id, RuleNameDTO ruleNameDTO) throws ResourceNotFoundException {
 
         RuleNameEntity ruleNameFound = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         String name = ruleNameDTO.getName() != null
                 ? ruleNameDTO.getName()

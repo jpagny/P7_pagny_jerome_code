@@ -26,7 +26,7 @@ public class RatingService extends AbstractServiceCrud<RatingEntity, RatingDTO> 
     public RatingDTO update(Integer id, RatingDTO ratingDTO) throws ResourceNotFoundException {
 
         RatingEntity ratingFound = ratingRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         String moodysRating = ratingDTO.getMoodysRating() != null
                 ? ratingDTO.getMoodysRating()

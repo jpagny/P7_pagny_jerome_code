@@ -26,7 +26,7 @@ public class CurvePointService extends AbstractServiceCrud<CurvePointEntity, Cur
     public CurvePointDTO update(Integer id, CurvePointDTO curvePointDTO) throws ResourceNotFoundException {
 
         CurvePointEntity curvePointFound = curvePointRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         Integer curveId = curvePointDTO.getCurveId() != null
                 ? curvePointDTO.getCurveId()

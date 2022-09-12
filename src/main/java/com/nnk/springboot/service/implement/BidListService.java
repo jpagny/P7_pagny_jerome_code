@@ -25,7 +25,7 @@ public class BidListService extends AbstractServiceCrud<BidListEntity, BidListDT
     @Override
     public BidListDTO update(Integer id, BidListDTO dto) throws ResourceNotFoundException {
         BidListEntity bidListFound = bidListRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         String account = dto.getAccount() != null
                 ? dto.getAccount()

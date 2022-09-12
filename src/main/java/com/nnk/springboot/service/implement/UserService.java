@@ -26,7 +26,7 @@ public class UserService extends AbstractServiceCrud<UserEntity, UserDTO> {
     public UserDTO update(Integer id, UserDTO userDTO) throws ResourceNotFoundException {
 
         UserEntity userFound = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)));
 
         String username = userDTO.getUsername() != null
                 ? userDTO.getUsername()
@@ -53,5 +53,6 @@ public class UserService extends AbstractServiceCrud<UserEntity, UserDTO> {
 
         return modelMapper.map(userFound, UserDTO.class);
     }
+
 
 }
