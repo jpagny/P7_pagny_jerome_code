@@ -1,7 +1,6 @@
 package com.nnk.springboot.validator;
 
 import org.passay.*;
-import org.springframework.core.env.Environment;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -37,9 +36,11 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
         List<String> messages = validator.getMessages(result);
         String messageTemplate = String.join(System.getProperty("line.separator"), messages);
 
-        constraintValidatorContext.buildConstraintViolationWithTemplate(messageTemplate)
-                .addConstraintViolation()
-                .disableDefaultConstraintViolation();
+        if ( constraintValidatorContext != null) {
+            constraintValidatorContext.buildConstraintViolationWithTemplate(messageTemplate)
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+        }
 
         return false;
     }
