@@ -1,3 +1,6 @@
+# URL
+http://localhost:9005/
+
 # Login / Password pour tester
 
 - admin / Test
