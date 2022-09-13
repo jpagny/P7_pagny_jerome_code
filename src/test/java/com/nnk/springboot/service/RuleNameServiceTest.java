@@ -3,6 +3,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.RuleNameDTO;
 import com.nnk.springboot.entity.RuleNameEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.impl.RuleNameRepository;
 import com.nnk.springboot.service.implement.RuleNameService;
@@ -82,7 +83,7 @@ public class RuleNameServiceTest {
 
     @Test
     @DisplayName("Should be returned ruleName when a new ruleName is created")
-    public void should_BeReturnedNewRuleName_When_ANewRuleNameIsCreated() {
+    public void should_BeReturnedNewRuleName_When_ANewRuleNameIsCreated() throws ResourceAlreadyExistException {
         RuleNameDTO ruleName = new RuleNameDTO("xxx", "xxx", "xxx", "xxx", "xxx", "xxx");
 
         when(ruleNameRepository.save(any(RuleNameEntity.class))).thenReturn(new RuleNameEntity("xxx", "xxx", "xxx", "xxx", "xxx", "xxx"));

@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 
 import com.nnk.springboot.dto.RatingDTO;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.RatingService;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class RatingController implements WebMvcConfigurer {
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid RatingDTO ratingDTO, BindingResult result, Model model) {
+    public String validate(@Valid RatingDTO ratingDTO, BindingResult result, Model model) throws ResourceAlreadyExistException {
 
         if (result.hasErrors()) {
             return "rating/add";

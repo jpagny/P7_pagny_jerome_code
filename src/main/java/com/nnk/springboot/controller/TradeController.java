@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 
 import com.nnk.springboot.dto.TradeDTO;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.TradeService;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class TradeController implements WebMvcConfigurer {
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid TradeDTO tradeDTO, BindingResult result, Model model) {
+    public String validate(@Valid TradeDTO tradeDTO, BindingResult result, Model model) throws ResourceAlreadyExistException {
 
         if (result.hasErrors()) {
             return "trade/add";

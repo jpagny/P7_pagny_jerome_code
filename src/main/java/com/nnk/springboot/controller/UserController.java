@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 
 import com.nnk.springboot.dto.UserDTO;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.UserService;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid UserDTO userDTO, BindingResult result, Model model) {
+    public String validate(@Valid UserDTO userDTO, BindingResult result, Model model) throws ResourceAlreadyExistException {
 
         if (result.hasErrors()) {
             return "user/add";

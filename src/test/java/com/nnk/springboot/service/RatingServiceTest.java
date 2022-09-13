@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.RatingDTO;
 import com.nnk.springboot.entity.RatingEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.impl.RatingRepository;
 import com.nnk.springboot.service.implement.RatingService;
@@ -81,7 +82,7 @@ public class RatingServiceTest {
 
     @Test
     @DisplayName("Should be returned rating when a new rating is created")
-    public void should_BeReturnedNewRating_When_ANewRatingIsCreated() {
+    public void should_BeReturnedNewRating_When_ANewRatingIsCreated() throws ResourceAlreadyExistException {
         RatingDTO rating = new RatingDTO("xxx", "xxx", "xxx", 10);
 
         when(ratingRepository.save(any(RatingEntity.class))).thenReturn(new RatingEntity("xxx", "xxx", "xxx", 10));

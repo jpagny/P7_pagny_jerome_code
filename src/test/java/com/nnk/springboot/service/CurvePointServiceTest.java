@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.entity.CurvePointEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.impl.CurvePointRepository;
 import com.nnk.springboot.service.implement.CurvePointService;
@@ -81,7 +82,7 @@ public class CurvePointServiceTest {
 
     @Test
     @DisplayName("Should be returned curvePoint when a new curvePoint is created")
-    public void should_BeReturnedNewCurvePoint_When_ANewCurvePointIsCreated() {
+    public void should_BeReturnedNewCurvePoint_When_ANewCurvePointIsCreated() throws ResourceAlreadyExistException {
         CurvePointDTO curvePoint = new CurvePointDTO(1, 10d, 15d);
 
         when(curvePointRepository.save(any(CurvePointEntity.class))).thenReturn(new CurvePointEntity(1, 10d, 15d));

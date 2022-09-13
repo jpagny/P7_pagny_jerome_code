@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 
 import com.nnk.springboot.dto.RuleNameDTO;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.RuleNameService;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class RuleNameController implements WebMvcConfigurer {
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleNameDTO ruleNameDTO, BindingResult result, Model model) {
+    public String validate(@Valid RuleNameDTO ruleNameDTO, BindingResult result, Model model) throws ResourceAlreadyExistException {
 
         if (result.hasErrors()) {
             return "ruleName/add";

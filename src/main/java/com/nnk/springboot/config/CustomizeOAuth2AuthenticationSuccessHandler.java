@@ -4,6 +4,7 @@ import com.nnk.springboot.constant.Role;
 import com.nnk.springboot.dto.CustomOAuth2User;
 import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.entity.UserEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.repository.impl.UserRepository;
 import com.nnk.springboot.service.implement.UserService;
 import lombok.SneakyThrows;
@@ -50,7 +51,7 @@ public class CustomizeOAuth2AuthenticationSuccessHandler extends SavedRequestAwa
         response.sendRedirect("/home");
     }
 
-    public void processOAuthPostLogin(CustomOAuth2User oAuth2User) {
+    public void processOAuthPostLogin(CustomOAuth2User oAuth2User) throws ResourceAlreadyExistException {
         Optional<UserEntity> existUser = userRepository.findUserByUsername(oAuth2User.getAttribute("login"));
 
         if (!existUser.isPresent()) {

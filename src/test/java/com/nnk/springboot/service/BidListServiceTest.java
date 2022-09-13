@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.entity.BidListEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.impl.BidListRepository;
 import com.nnk.springboot.service.implement.BidListService;
@@ -81,7 +82,7 @@ public class BidListServiceTest {
 
     @Test
     @DisplayName("Should be returned bidList when a new bidList is created")
-    public void should_BeReturnedNewBidList_When_ANewBidListIsCreated() {
+    public void should_BeReturnedNewBidList_When_ANewBidListIsCreated() throws ResourceAlreadyExistException {
         BidListDTO bidListDTO = new BidListDTO("1", "xxx", 100d);
 
         when(bidListRepository.save(any(BidListEntity.class))).thenReturn(new BidListEntity("1", "xxx", 100d));
