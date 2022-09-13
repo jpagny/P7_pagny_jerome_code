@@ -2,7 +2,7 @@ package com.nnk.springboot.config;
 
 import com.nnk.springboot.constant.Role;
 import com.nnk.springboot.service.CustomOAuth2UserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -19,20 +19,21 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class WebSecurityConfig implements WebMvcConfigurer {
 
-    private CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
-    private CustomizeOAuth2AuthenticationSuccessHandler customizeOAuth2AuthenticationSuccessHandler;
-    private CustomOAuth2UserService oauthUserService;
+    private final CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
+    private final CustomizeOAuth2AuthenticationSuccessHandler customizeOAuth2AuthenticationSuccessHandler;
+    private final CustomOAuth2UserService oauthUserService;
 
-    private Environment env;
-
+    private final LoggerInterceptorConfig loggerInterceptorConfig;
+    private final Environment env;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -52,6 +53,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .antMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
                 .antMatchers("/user/**").hasAuthority(Role.USER.getAuthority())
                 .anyRequest().authenticated()
+                // SESSION
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -59,18 +61,21 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .successHandler(customizeAuthenticationSuccessHandler)
                 .permitAll()
                 .and()
+                // LOGOUT
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout"))
+                .permitAll()
+                // OAUTH
+                .and()
                 .oauth2Login()
                 .loginPage("/login").permitAll()
                 .userInfoEndpoint()
                 .userService(oauthUserService)
                 .and()
                 .successHandler(customizeOAuth2AuthenticationSuccessHandler)
-                .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout"))
-                .permitAll();
+        ;
 
         return http.build();
     }
@@ -99,6 +104,11 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
+
+    @Override
+    public void addInterceptors(final InterceptorRegistry registry){
+        registry.addInterceptor(loggerInterceptorConfig);
     }
 
 
