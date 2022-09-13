@@ -2,6 +2,7 @@ package com.nnk.springboot.controller;
 
 
 import com.nnk.springboot.dto.BidListDTO;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.BidListService;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidListDTO bidListDTO, BindingResult result, Model model) {
+    public String validate(@Valid BidListDTO bidListDTO, BindingResult result, Model model) throws ResourceAlreadyExistException {
 
         if (result.hasErrors()) {
             return "bidList/add";

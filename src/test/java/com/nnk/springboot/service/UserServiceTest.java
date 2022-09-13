@@ -3,6 +3,7 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.constant.Role;
 import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.entity.UserEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.impl.UserRepository;
 import com.nnk.springboot.service.implement.UserService;
@@ -80,7 +81,7 @@ public class UserServiceTest {
 
     @Test
     @DisplayName("Should be returned user when a new user is created")
-    public void should_BeReturnedNewUser_When_ANewUserIsCreated() {
+    public void should_BeReturnedNewUser_When_ANewUserIsCreated() throws ResourceAlreadyExistException {
         UserDTO user = new UserDTO("Jerome Pagny", "JP", "xxx", Role.ADMIN.name());
 
         when(userRepository.save(any(UserEntity.class))).thenReturn(new UserEntity("Jerome Pagny", "JP", "xxx", Role.ADMIN.name()));
@@ -89,6 +90,23 @@ public class UserServiceTest {
 
         assertEquals(newUser, user);
     }
+
+    @Test
+    @DisplayName("Should be exception when the user created is already present")
+    public void should_beException_when_theUserCreatedIsAlreadyPresent() {
+        UserEntity user = new UserEntity("Jerome Pagny", "JP", "xxx", Role.ADMIN.name());
+        UserDTO userDTO = new UserDTO("Jerome Pagny", "JP", "xxx", Role.ADMIN.name());
+        when(userRepository.findUserByUsername(any(String.class))).thenReturn(Optional.of(user));
+
+        Exception exception = assertThrows(ResourceAlreadyExistException.class, () -> userService.create(userDTO));
+
+        String expectedMessage = "Resource is already exist with resource : JP";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
 
     @Test
     @DisplayName("Should be returned user updated when a user is updated")

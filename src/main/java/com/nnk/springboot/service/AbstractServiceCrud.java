@@ -1,5 +1,6 @@
 package com.nnk.springboot.service;
 
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.IBaseRepository;
 import org.modelmapper.ModelMapper;
@@ -13,7 +14,6 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
 
     private final ModelMapper modelMapper;
     private final IBaseRepository<Entity> iBaseRepository;
-
     private final Class<Entity> entityClass = (Class<Entity>) ((ParameterizedType) getClass()
             .getGenericSuperclass()).getActualTypeArguments()[0];
 
@@ -50,7 +50,8 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
 
 
     @Override
-    public DTO create(DTO dto) {
+    public DTO create(DTO dto) throws ResourceAlreadyExistException {
+
         Entity entity = modelMapper.map(dto, entityClass);
         Entity entitySaved = iBaseRepository.save(entity);
 

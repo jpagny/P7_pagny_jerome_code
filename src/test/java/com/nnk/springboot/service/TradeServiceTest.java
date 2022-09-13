@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.entity.TradeEntity;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.repository.impl.TradeRepository;
 import com.nnk.springboot.service.implement.TradeService;
@@ -81,7 +82,7 @@ public class TradeServiceTest {
 
     @Test
     @DisplayName("Should be returned trade when a new trade is created")
-    public void should_BeReturnedNewTrade_When_ANewTradeIsCreated() {
+    public void should_BeReturnedNewTrade_When_ANewTradeIsCreated() throws ResourceAlreadyExistException {
         TradeDTO trade = new TradeDTO("xxx", "ccc", 15d);
 
         when(tradeRepository.save(any(TradeEntity.class))).thenReturn(new TradeEntity("xxx", "ccc", 15d));

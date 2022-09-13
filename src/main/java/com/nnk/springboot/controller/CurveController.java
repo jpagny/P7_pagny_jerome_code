@@ -1,6 +1,7 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.dto.CurvePointDTO;
+import com.nnk.springboot.exception.ResourceAlreadyExistException;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.CurvePointService;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class CurveController implements WebMvcConfigurer {
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePointDTO curvePointDTO, BindingResult bindingResult, Model model) {
+    public String validate(@Valid CurvePointDTO curvePointDTO, BindingResult bindingResult, Model model) throws ResourceAlreadyExistException {
 
         if (bindingResult.hasErrors()) {
             return "curvePoint/add";
