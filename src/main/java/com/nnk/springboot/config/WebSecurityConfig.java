@@ -5,6 +5,7 @@ import com.nnk.springboot.service.CustomOAuth2UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,11 +19,13 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
 
     private CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler;
     private CustomizeOAuth2AuthenticationSuccessHandler customizeOAuth2AuthenticationSuccessHandler;
@@ -38,7 +41,7 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/css/**", "/js/**");
+        return (web) -> web.ignoring().antMatchers("/css/**", "/js/**","/images/**");
     }
 
     @Bean
@@ -51,10 +54,13 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
+                .usernameParameter("name").permitAll()
                 .successHandler(customizeAuthenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .oauth2Login()
+                .loginPage("/login").permitAll()
                 .userInfoEndpoint()
                 .userService(oauthUserService)
                 .and()
@@ -86,6 +92,13 @@ public class WebSecurityConfig {
                 .userInfoUri("https://api.github.com/user")
                 .userNameAttributeName("login")
                 .clientName("GitHub").build();
+    }
+
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
 
