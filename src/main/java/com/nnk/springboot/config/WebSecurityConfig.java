@@ -41,7 +41,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/css/**", "/js/**","/images/**");
+        return (web) -> web.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
     }
 
     @Bean

@@ -49,7 +49,6 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
     }
 
 
-
     @Override
     public DTO create(DTO dto) {
         Entity entity = modelMapper.map(dto, entityClass);
@@ -58,6 +57,7 @@ public abstract class AbstractServiceCrud<Entity, DTO> implements IGenericServic
         return modelMapper.map(entitySaved, dtoCLass);
 
     }
+
     @Override
     public abstract DTO update(Integer id, DTO dto) throws ResourceNotFoundException;
 

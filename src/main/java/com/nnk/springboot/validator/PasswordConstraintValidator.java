@@ -36,7 +36,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
         List<String> messages = validator.getMessages(result);
         String messageTemplate = String.join(System.getProperty("line.separator"), messages);
 
-        if ( constraintValidatorContext != null) {
+        if (constraintValidatorContext != null) {
             constraintValidatorContext.buildConstraintViolationWithTemplate(messageTemplate)
                     .addConstraintViolation()
                     .disableDefaultConstraintViolation();

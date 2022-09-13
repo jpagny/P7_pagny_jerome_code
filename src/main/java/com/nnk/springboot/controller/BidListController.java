@@ -2,7 +2,6 @@ package com.nnk.springboot.controller;
 
 
 import com.nnk.springboot.dto.BidListDTO;
-import com.nnk.springboot.entity.BidListEntity;
 import com.nnk.springboot.exception.ResourceNotFoundException;
 import com.nnk.springboot.service.implement.BidListService;
 import lombok.AllArgsConstructor;

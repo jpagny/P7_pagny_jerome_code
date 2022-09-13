@@ -20,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -125,6 +126,7 @@ public class BidListControllerTestIT {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
     @Test
     @DisplayName("Should be redirect to bidList/list when bidList updated is success")
     @WithUserDetails("admin")
@@ -161,6 +163,7 @@ public class BidListControllerTestIT {
                 .andReturn();
 
     }
+
     @Test
     @DisplayName("Should be redirect to bidList/update when bidList updated is fail")
     @WithUserDetails("admin")
@@ -182,6 +185,7 @@ public class BidListControllerTestIT {
         assertNotNull(bidList);
         assertEquals(2, bidList.getBidQuantity());
     }
+
     @Test
     @DisplayName("Should be redirect to bidList/list when bidList deleted is success")
     @WithUserDetails("admin")
